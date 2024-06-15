@@ -17,8 +17,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"
         integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMgE8AMbr6ZivZp+AzBuJg7STl5ow5pXkk+1PiD" crossorigin="anonymous">
 
-    <style>
-        /* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+    <!-- <style>
+         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
 
         header {
@@ -63,7 +63,7 @@
 
 
 
-        /* .buscar-servico .form-control {
+        .buscar-servico .form-control {
             border: none;
         }
 
@@ -174,15 +174,15 @@
             .container-main {
                 padding: 0 !important;
             }
-        } */
-    </style>
+        }
+    </style> -->
 </head>
 
 <div>
     <header>
         <div class="logo-e-titulo">
             <div class="logo">
-                <img src="/static/img/logo-brigada-militar.png" alt="" srcset="">
+                <img src="../static/img/logo-brigada-militar.png" alt="" srcset="">
             </div>
             <div class="titulo-brigada-militar">
                 <span>BRIGADA MILITAR</span>
@@ -202,6 +202,26 @@
         </div> -->
     </header>
     {% block content %}
+
+    <div class="container">
+        <h2 class="text-center">Cadastro</h2>
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <form method="POST" class="needs-validation" novalidate="" autocomplete="off">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </form>
+        <div class="text-center mt-3">
+            Já tem uma conta? <a href="{% url 'login' %}" class="text-decoration-none">Faça o login</a>
+        </div>
+    </div>
+
     {% endblock %}
     <!-- <nav class="navbar navbar-expand-lg w-100 " style="background-color: #D9D9D9;">
         <div class="container-fluid ">
@@ -228,26 +248,10 @@
             </div>
         </div>
     </nav> -->
-
-    <div class="container">
-        <h2 class="text-center">Cadastro</h2>
-        {% if messages %}
-        <div class="messages">
-            {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-            {% endfor %}
-        </div>
-        {% endif %}
-        <form method="POST" class="needs-validation" novalidate="" autocomplete="off">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Cadastrar</button>
-        </form>
-        <div class="text-center mt-3">
-            Já tem uma conta? <a href="{% url 'login' %}" class="text-decoration-none">Faça o login</a>
-        </div>
-    </div>
+    
     <!-- LINK DO ARQUIVO BOOTSTRAP.JS -->
     <script src="./bootstrap.min.js"></script>
 </div>
+
 </html>
+
