@@ -1,0 +1,50 @@
+/* static/assets/login.css */
+body {
+    background-image: url("../../static/img/BRIGADA_imgagem.png");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.form-container {
+    max-width: 400px;
+    margin: 50px auto;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+.form-check {
+    text-align: center;
+}
+.btn-entrar {
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    margin: 10px auto 0;
+    font-weight: bold;
+}
+.btn-entrar:hover {
+    background-color: #2980b9;
+    border-color: #2980b9;
+}
+.btn-entrar {
+    background-color: #DEC208;
+    color: #000000;
+    border-color: #060606;
+}
+.btn-entrar:hover {
+    background-color: #D7B90C;
+    border-color: #D7B90C;
+}
+.input-custom {
+    border-color: #060606;
+}      
+
+.container-main {
+    padding-top: 50px;
+}
+
+

@@ -11,115 +11,67 @@
     <title>Login</title>
     <link rel="stylesheet" type="text/css" href="{% static 'assets/bootstrap.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'assets/login.css' %}">
-    
-    <!-- <style>
-       body {
-            background-image: url("{% static 'img/BRIGADA_imgagem.png' %}");
-            background-size: cover;
-            background-position: center;
-            height: 100vh;
-            margin: 0;
-            padding: 0;
-        }
-        
-        .form-container {
-            max-width: 400px;
-            margin: 50px auto;
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-        }
-        .form-check {
-            text-align: center;
-        }
-        .btn-entrar {
-            display: block;
-            width: 100%;
-            max-width: 200px;
-            margin: 10px auto 0;
-            font-weight: bold;
-        }
-        .btn-entrar:hover {
-            background-color: #2980b9;
-            border-color: #2980b9;
-        }
-        .btn-entrar {
-            background-color: #DEC208;
-            color: #000000;
-            border-color: #060606;
-        }
-        .btn-entrar:hover {
-            background-color: #D7B90C;
-            border-color: #D7B90C;
-        }
-        .input-custom {
-            border-color: #060606;
-        }      
-        
-        .container-main {
-            padding-top: 50px;
-        }
-    </style> -->
 </head>
 
 <body>
     <!-- Conteúdo principal -->
- <!-- Conteúdo principal -->
- <section class="h-100">
-    <div class="container-fluid container-main h-100">
-        <div class="row justify-content-center align-items-center h-100">
-            <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
-                <div class="card shadow-lg" style="background-color: rgba(255, 255, 255, 0.7);">
-                    <div class="card-body p-5">
-                        <h1 class="fs-4 card-title fw-bold mb-4 text-center">Login</h1>
-                        
-                        {% if messages %}
-                        <div class="messages">
-                            {% for message in messages %}
-                            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-                            {% endfor %}
-                        </div>
-                        {% endif %}
-                        
-                        <form method="POST" class="needs-validation" novalidate="" autocomplete="off">
-                            {% csrf_token %}
-                            <div class="mb-3">
-                                <label class="mb-2 text-muted" for="email">ID Funcional</label>
-                                <input id="email" type="email" class="form-control" name="username" value="" required autofocus>
-                                <div class="invalid-feedback">Email inválido</div>
+    <section class="h-100">
+        <div class="container-fluid container-main h-100">
+            <div class="row justify-content-center align-items-center h-100">
+                <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
+                    <div class="card shadow-lg" style="background-color: rgba(255, 255, 255, 0.7);">
+                        <div class="card-body p-5">
+                            <h1 class="fs-4 card-title fw-bold mb-4 text-center">Login</h1>
+                            
+                            {% if messages %}
+                            <div class="messages">
+                                {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                                {% endfor %}
                             </div>
-                            <div class="mb-3">
-                                <div class="mb-2 w-100">
-                                    <label class="text-muted" for="password">Senha</label>
+                            {% endif %}
+                            
+                            <form method="POST" class="needs-validation" novalidate="" autocomplete="off">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label class="mb-2 text-muted" for="email">ID Funcional</label>
+                                    <input id="email" type="email" class="form-control" name="username" value="" required autofocus>
+                                    <div class="invalid-feedback">Email inválido</div>
                                 </div>
-                                <input id="password" type="password" class="form-control" name="password" required>
-                                <div class="invalid-feedback">Senha é obrigatória</div>
-                            </div>
+                                <div class="mb-3">
+                                    <div class="mb-2 w-100">
+                                        <label class="text-muted" for="password">Senha</label>
+                                    </div>
+                                    <input id="password" type="password" class="form-control" name="password" required>
+                                    <div class="invalid-feedback">Senha é obrigatória</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="form-check d-inline-block">
+                                        <input type="checkbox" name="remember" id="remember" class="form-check-input">
+                                        <label for="remember" class="form-check-label">Lembrar-me</label>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-entrar">Entrar</button>
+                                    <div class="text-center mt-3">
+                                        Não tem uma conta? <a href="{% url 'register' %}" class="text-decoration-none">Cadastre-se</a>
+                                    </div>
+                                </div>
+                            </form>
+                            
+                        </div>
+                        <div class="card-footer py-3 border-0">
                             <div class="text-center">
-                                <div class="form-check d-inline-block">
-                                    <input type="checkbox" name="remember" id="remember" class="form-check-input">
-                                    <label for="remember" class="form-check-label">Lembrar-me</label>
-                                </div>
-                                <button type="submit" class="btn btn-primary btn-entrar">Entrar</button>
+                               
                             </div>
-                        </form>
-                        
-                    </div>
-                    <div class="card-footer py-3 border-0">
-                        <div class="text-center">
-                           
                         </div>
                     </div>
-                </div>
 
-                <div class="text-center mt-5 text-muted">
-                    Copyright &copy; 2017-2021 &mdash; Sua Empresa
+                    <div class="text-center mt-5 text-muted">
+                        Copyright &copy; 2017-2021 &mdash; Sua Empresa
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <script src="{% static 'assets/bootstrap.js' %}"></script>
 </body>
