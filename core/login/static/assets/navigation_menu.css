@@ -1,0 +1,117 @@
+/* CSS Navigation Menu - Cleiton Ferrugem */
+
+.background_main_menu {
+  background-color: #ffffff ;
+}
+
+.main_menu {
+  height: calc(100vh - 210px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main_menu > ul {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  list-style-type: none;
+}
+
+.main_menu > ul > li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 45px;
+  padding-right: 45px;
+}
+
+.main_menu > ul > li > a:hover {
+  transition: 250ms ease-in-out;
+  filter: drop-shadow(0px 0px 1px rgba(189, 182, 182, 1));
+}
+
+.mobile-icon,
+.mobile-text {
+  display: none;
+}
+
+@media (max-width: 991px) {
+  .main_menu {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .main_menu > ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style-type: none;
+    padding-left: 0px ;
+    margin-left: 0;
+  }
+
+  .main_menu > ul > li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 5px;
+  }
+
+  .main_menu > ul > li > a {
+    display: flex;
+    align-items: center;
+    height: 75px;
+    width: 350px;
+    border: #555347 solid;
+    border-radius: 100px;
+  }
+  .main_menu > ul > li > a > {
+    display: flex;
+    align-items: center;
+  }
+  .main_menu > ul > li > a > i {
+    display: flex;
+  }
+  .main_menu > ul > li > a > i > figure {
+    display: contents;
+  }
+
+  .main_menu > ul > li > a > figure {
+    display: flex;
+  }
+
+  .main_menu > ul > li > a > figure > img {
+    align-items: center;
+  }
+
+  .desktop-img {
+    display: none;
+  }
+
+  .mobile-icon,
+  .mobile-text {
+    display: inline-block;
+  }
+
+  .mobile-icon {
+    margin-left: 20px;
+  }
+
+  .mobile-text {
+    color: #555347;
+    font-weight: 600;
+    margin-left: 10px;
+  }
+  .main_menu_a {
+    text-decoration: none;
+  }
+}
+
+/* CSS Navigation Menu - Cleiton Ferrugem */
