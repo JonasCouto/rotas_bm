@@ -26,7 +26,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from .forms import UserRegistrationForm
 
-
+#Jonas - Metodo do Header
 def index(request):
     if request.method == "POST":
         form = UserRegistrationForm(request.POST)
@@ -42,7 +42,7 @@ def index(request):
         form = UserRegistrationForm()
     return render(request, "index.html", {"form": form})
 
-
+#Jonas - Metodo do Login
 def login_view(request):
     if request.method == "POST":
         username = request.POST["username"]
@@ -57,6 +57,18 @@ def login_view(request):
             messages.error(request, "Nome de usuário ou senha inválidos.")
     return render(request, "login.html")
 
-
+#Cleiton- Metodo do Painel de Navegação
 def navigation_menu(request):
     return render(request, "navigation_menu.html")
+
+#Lucas - Metodo do mapas
+def map_direction(request):
+    return render(request, "map_direction.html")
+
+#Lucas - Metodo de Cadastrar Pessoa
+def register_person(request):
+    return render(request, "register_person.html")
+
+#Jonathn - Metodo de Registrar Visita
+def register_visit(request):
+    return render(request, "register_visit.html")

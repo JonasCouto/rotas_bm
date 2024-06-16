@@ -23,5 +23,8 @@ urlpatterns = [
     # path('', include('login.urls')),
     path("user/", views.index, name="register"),  # Inclua as URLs do aplicativo 'login'
     path('',views.login_view, name='login'),  # Inclua as URLs do aplicativo 'login'
-    path('navigation_menu/', views.navigation_menu, name='navigation_menu') # Panel settings
+    path('navigation_menu/', views.navigation_menu, name='navigation_menu'), # Panel settings
+    path('register_person/', views.register_person, name='register_person'), # Register person
+    path('register_visit/', views.register_visit, name='register_visit'), # Register visit      
+    path('map_direction/', views.map_direction, name='map_direction'), # Maps
 ]
