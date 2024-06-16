@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('', include('login.urls')),
     path("user/", views.index, name="register"),  # Inclua as URLs do aplicativo 'login'
-    path('',views.login_view, name='login')  # Inclua as URLs do aplicativo 'login'
+    path('',views.login_view, name='login'),  # Inclua as URLs do aplicativo 'login'
+    path('navigation_menu/', views.navigation_menu, name='navigation_menu') # Panel settings
 ]

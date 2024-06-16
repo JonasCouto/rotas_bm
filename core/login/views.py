@@ -53,3 +53,7 @@ def login_view(request):
         else:
             messages.error(request, 'Nome de usuário ou senha inválidos.')
     return render(request, 'login.html')
+
+
+def navigation_menu(request):
+    return render(request, 'navigation_menu.html')
