@@ -18,7 +18,7 @@
     />
   </head>
 
-  </body class="background_main_menu">
+  <body class="background_main_menu">
     <div class="main_menu">
       <ul class="main_menu_ul">
         <li class="main_menu_li">
@@ -41,7 +41,7 @@
           </a>
         </li>
         <li>
-          <a class="main_menu_a" href="">
+          <a class="main_menu_a" href="{% url 'register_person' %}">
             <figure>
               <img class="desktop-img" src="../static/img/cadastrar_pessoa.svg" alt="" />
             </figure>
@@ -52,7 +52,7 @@
           </a>
         </li>
         <li>
-          <a class="main_menu_a" href="">
+          <a class="main_menu_a" href="{% url 'register_visit' %}">
             <figure>
               <img class="desktop-img" src="../static/img/registro_de_visita.svg" alt="" />
             </figure>
@@ -63,7 +63,7 @@
           </a>
         </li>
         <li>
-          <a class="main_menu_a" href="">
+          <a class="main_menu_a" href="{% url 'map_direction' %}">
             <figure>
               <img class="desktop-img" src="../static/img/definicao_rota.svg" alt="" />
             </figure>
@@ -77,7 +77,7 @@
     </div>
 
     <script src="{% static 'assets/bootstrap.js' %}"></script>
-  <body/>
+  </body>
 </html>
 {% endblock %}
 
