@@ -12,7 +12,12 @@
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.0.7/css/all.css"
     />
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link
+    rel="stylesheet"
+    type="text/css"
+    href="{% static 'assets/register_person.css' %}"
+  />
+    {% comment %} <link rel="stylesheet" href="{% static 'assets/bootstrap.css' %}" /> {% endcomment %}
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -25,154 +30,7 @@
       integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMgE8AMbr6ZivZp+AzBuJg7STl5ow5pXkk+1PiD"
       crossorigin="anonymous"
     />
-
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
-      header {
-        width: 100%;
-        padding: 1rem;
-        padding-left: 5%;
-        padding-right: 5%;
-        background-color: #555347;
-        align-items: center;
-        border-bottom: 5px solid #dec208;
-      }
-
-      .logo img {
-        height: 100%;
-        width: 100%;
-      }
-
-      .titulo-brigada-militar {
-        color: white;
-        font-size: 25px;
-        font-weight: 900;
-        font-family: "Inter";
-      }
-
-      .input-group .form-control:focus {
-        box-shadow: none;
-      }
-
-      .input-group .form-control {
-        border-right: 0;
-        border-top-right-radius: 50px;
-        border-bottom-right-radius: 50px;
-        text-align: center;
-        outline: none;
-      }
-
-      .buscar-servico .form-control::placeholder {
-        text-align: center;
-      }
-
-      nav {
-        padding: 0;
-      }
-
-      nav > div > div > ul > li > a {
-        color: #555353 !important;
-        font-size: 20px;
-        font-weight: 600 !important;
-        font-family: "Inter";
-      }
-
-      nav > div > div > ul > li > a.link-atual {
-        color: #cdb204 !important;
-        border-bottom: 2px solid;
-      }
-
-      form > div > input,
-      form > div > div > input,
-      select {
-        background-color: #eaeaea !important;
-      }
-
-      #rg::placeholder,
-      #cpf::placeholder {
-        opacity: 1 !important;
-      }
-
-      .container-main > div > div > form input::placeholder {
-        opacity: 0 !important;
-      }
-
-      select,
-      input[type="date"] {
-        color: gray !important;
-      }
-
-      input[type="number"]::-webkit-outer-spin-button,
-      input[type="number"]::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-      }
-
-      /* Para navegadores baseados em Firefox */
-      input[type="number"] {
-        -moz-appearance: textfield;
-      }
-
-      .btn-tema {
-        display: none;
-      }
-
-      @media (max-width: 991px) {
-        header {
-          display: flex;
-        }
-
-        .logo-e-titulo {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-
-        .buscar-servico {
-          display: none;
-        }
-
-        .btn-tema {
-          display: block;
-        }
-
-        .navbar-toggler {
-          position: relative;
-          top: -35px;
-          right: -15px;
-        }
-
-        nav {
-          background-color: transparent !important;
-          padding: 0;
-        }
-
-        nav > div {
-          margin-top: -3rem;
-          padding-left: 0 !important;
-          padding-right: 0 !important;
-        }
-
-        nav > div > div > ul > li {
-          background-color: #f5f5f4df;
-          padding: 1.2rem;
-        }
-
-        .container-main {
-          padding: 0 !important;
-        }
-
-        label {
-          display: none;
-        }
-
-        .container-main > div > div > form input::placeholder {
-          opacity: 1 !important;
-        }
-      }
-    </style>
   </head>
-
   <body>
     <header class="d-flex justify-content-lg-around h-auto">
       <div
@@ -191,24 +49,22 @@
           <span>BRIGADA MILITAR</span>
         </div>
       </div>
-      <div class="buscar-servico" style="width: 30%">
+      <div class="logout" style="width: 30%">
          <a style = "cursor:pointer;text-decoration:none " href="{% url 'login' %}">
             <span
-              {% comment %} icone de ./img/logout-icon.png em baixo dele escrito logout{% endcomment %}
+              
               class="input-group-text bg-transparent border-0 d-flex flex-column "
               style="background-color: #f5f5f4df; border: none;"
               >
               <img
                 src="{% static 'img/logout-icon.png' %}"
-                alt="Buscar"
+                alt="Deslogar"
                 style="width: 40px; height:35px;">
                 <span class = "text-light fw-bold">
                   Logout
                 </span>
             </span>
           </a>
-      </div>
-      <button class="btn-tema btn btn-warning">Tema</button>
     </header>
     <nav
       class="navbar navbar-expand-lg w-100"
@@ -358,19 +214,21 @@
               </label>
               <div class="d-flex justify-content-between">
                 <input
-                  type="text"
-                  class="form-select border-1 border-dark shadow-sm"
-                  style="width: 48%"
-                  id="naturalidade"
-                  list="cidades"
-                  placeholder="Digite a naturalidade"
-                />
+                type="text"
+                class="form-control border-1 border-dark shadow-sm"
+                style="width: 48%"
+                id="naturalidade"
+                placeholder="Digite a naturalidade"
+                autocomplete="off"
+                list="cidades-list"
+            />
+            <datalist id="cidades-list"></datalist> 
                 <input
-                  type="date"
-                  class="form-control border-1 border-dark shadow-sm"
-                  style="width: 48%"
-                  id="data-nascimento"
-                />
+                type="date"
+                class="form-control border-1 border-dark shadow-sm"
+                style="width: 48%"
+                id="data-nascimento" 
+              />
               </div>
             </div>
             <div class="mb-3">
@@ -615,148 +473,10 @@
         </div>
       </div>
     </div>
-
+<!-- Load jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- LINK DO ARQUIVO BOOTSTRAP.JS -->
-    <script src="./bootstrap.min.js"></script>
-
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const cepInput = document.getElementById("cep");
-        const residenciaInput = document.getElementById("residencia");
-        const bairroInput = document.getElementById("bairro");
-        const cidadeInput = document.getElementById("cidade");
-        const numeroInput = document.getElementById("numero-residencia");
-        const latitudeInput = document.getElementById("latitude");
-        const longitudeInput = document.getElementById("longitude");
-
-        cepInput.addEventListener("change", function () {
-          const cep = this.value.replace(/\D/g, ""); // Remover caracteres não numéricos do CEP
-
-          if (cep.length !== 8) return; // Verificar se o CEP possui o tamanho correto
-
-          fetch(`https://viacep.com.br/ws/${cep}/json/`) // Consultar a API de CEP
-            .then((response) => response.json())
-            .then((data) => {
-              if (!("erro" in data)) {
-                // Preencher os campos de endereço, bairro e cidade
-                residenciaInput.value = data.logradouro;
-                bairroInput.value = data.bairro;
-                cidadeInput.value = data.localidade;
-                // Atualizar latitude e longitude
-                if (
-                  residenciaInput.value &&
-                  bairroInput.value &&
-                  cidadeInput.value &&
-                  numeroInput.value
-                ) {
-                  const address = `${residenciaInput.value}, ${numeroInput.value}, ${bairroInput.value}, ${cidadeInput.value}`;
-                  geocodeAddress(address);
-                }
-              } else {
-                alert("CEP não encontrado.");
-              }
-            })
-            .catch((error) => console.error("Erro ao consultar o CEP:", error));
-        });
-
-        const formInputs = [
-          residenciaInput,
-          bairroInput,
-          cidadeInput,
-          numeroInput,
-        ];
-        formInputs.forEach((input) => {
-          input.addEventListener("change", function () {
-            if (
-              residenciaInput.value &&
-              bairroInput.value &&
-              cidadeInput.value &&
-              numeroInput.value
-            ) {
-              const address = `${residenciaInput.value}, ${numeroInput.value}, ${bairroInput.value}, ${cidadeInput.value}`;
-              geocodeAddress(address);
-            }
-          });
-        });
-
-        function geocodeAddress(address) {
-          const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
-            address
-          )}`;
-          fetch(url)
-            .then((response) => response.json())
-            .then((data) => {
-              if (data.length > 0) {
-                const location = data[0];
-                latitudeInput.value = location.lat;
-                longitudeInput.value = location.lon;
-              } else {
-                console.error("Endereço não encontrado.");
-              }
-            })
-            .catch((error) =>
-              console.error("Erro ao consultar o Nominatim:", error)
-            );
-        }
-      });
-
-      function updatePlaceholders() {
-        // Atualização do placeholder para Estado Civil
-        var estadoCivilSelect = document.getElementById("estado-civil-select");
-        var estadoCivilPlaceholderOption =
-          estadoCivilSelect.querySelector('option[value="0"]');
-
-        if (window.innerWidth <= 991) {
-          estadoCivilPlaceholderOption.textContent = "Estado Civil";
-        } else {
-          estadoCivilPlaceholderOption.textContent = "Selecione";
-        }
-
-        // Atualização do placeholder para Naturalidade
-        var naturalidadeSelect = document.getElementById("naturalidade-select");
-        var naturalidadePlaceholderOption =
-          naturalidadeSelect.querySelector("option");
-
-        if (window.innerWidth <= 991) {
-          naturalidadePlaceholderOption.textContent = "Naturalidade";
-        } else {
-          naturalidadePlaceholderOption.textContent = "Selecione";
-        }
-
-        // Atualização do placeholder para Nacionalidade
-        var nacionalidadeSelect = document.getElementById(
-          "nacionalidade-select"
-        );
-        var nacionalidadePlaceholderOption =
-          nacionalidadeSelect.querySelector('option[value="0"]');
-
-        if (window.innerWidth <= 991) {
-          nacionalidadePlaceholderOption.textContent = "Nacionalidade";
-        } else {
-          nacionalidadePlaceholderOption.textContent = "Selecione";
-        }
-
-        // Nenhuma alteração necessária para o input de Data de Nascimento, pois o placeholder já é estático
-
-        // Atualização do evento de input
-        var dataNascimentoInput = document.getElementById("data-nascimento");
-        if (window.innerWidth <= 991) {
-          dataNascimentoInput.placeholder = "Data de Nascimento";
-        } else {
-          dataNascimentoInput.placeholder = "Data de Nascimento";
-        }
-        // Atualização do placeholder para Gênero
-        var generoSelect = document.getElementById("genero-select");
-        var generoPlaceholderOption = generoSelect.querySelector(
-          'option[class="placeholder-mobile"]'
-        );
-
-        if (window.innerWidth <= 991) {
-          generoPlaceholderOption.textContent = "Sexo";
-        } else {
-          generoPlaceholderOption.textContent = "Selecione";
-        }
-      }
-    </script>
+    {% comment %} <script src="{% static 'assets/bootstrap.js' %}"></script> {% endcomment %}
+    <script src="{% static 'assets/register_person.js' %}"></script>
   </body>
 </html>
