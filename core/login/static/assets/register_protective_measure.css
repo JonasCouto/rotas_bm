@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+header {
+            width: 100%;
+            padding: 1rem 5%;
+            background-color: #555347;
+            align-items: center;
+            border-bottom: 5px solid #DEC208;
+        }
+
+        .logo img {
+            height: 100%;
+            width: 100%;
+        }
+
+        .titulo-brigada-militar {
+            color: white;
+            font-size: 25px;
+            font-weight: 900;
+            font-family: "Inter";
+        }
+
+        .input-group .form-control:focus {
+            box-shadow: none;
+        }
+
+        .input-group .form-control {
+            border-right: 0;
+            border-top-right-radius: 50px;
+            border-bottom-right-radius: 50px;
+            text-align: center;
+            outline: none;
+        }
+
+        .buscar-servico .form-control::placeholder {
+            text-align: center;
+        }
+
+        nav {
+            padding: 0;
+        }
+
+        nav>div>div>ul>li>a {
+            color: #555353 !important;
+            font-size: 20px;
+            font-weight: 600 !important;
+            font-family: "Inter";
+        }
+
+        nav>div>div>ul>li>a.link-atual {
+            color: #cdb204 !important;
+            border-bottom: 2px solid;
+        }
+
+        form>div>input,
+        form>div>div>input,
+        select {
+            background-color: #EAEAEA !important;
+        }
+
+        #rg::placeholder,
+        #cpf::placeholder {
+            opacity: 1 !important;
+        }
+
+        .container-main>div>div>form input::placeholder {
+            opacity: 0 !important;
+        }
+
+        select,
+        input[type="date"] {
+            color: gray !important;
+        }
+
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Para navegadores baseados em Firefox */
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        .btn-tema {
+            display: none;
+        }
+
+        @media (max-width: 991px) {
+            header {
+                display: flex;
+            }
+
+            .logo-e-titulo {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .buscar-servico {
+                display: none;
+            }
+
+            .btn-tema {
+                display: block;
+            }
+
+            .navbar-toggler {
+                position: relative;
+                top: -35px;
+                right: -15px;
+            }
+
+            nav {
+                background-color: transparent !important;
+                padding: 0;
+            }
+
+            nav>div {
+                margin-top: -3rem;
+                padding-left: 0 !important;
+                padding-right: 0 !important
+            }
+
+            nav>div>div>ul>li {
+                background-color: #f5f5f4df;
+                padding: 1.2rem;
+            }
+
+            .container-main {
+                padding: 0 !important;
+            }
+
+            label {
+                display: none;
+            }
+
+            .container-main>div>div>form input::placeholder {
+                opacity: 1 !important;
+            }
+        }

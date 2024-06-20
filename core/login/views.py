@@ -72,3 +72,6 @@ def register_person(request):
 #Jonathn - Metodo de Registrar Visita
 def register_visit(request):
     return render(request, "register_visit.html")
+
+def register_protective_measure(request):
+    return render(request, "register_protective_measure.html")
