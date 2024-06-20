@@ -25,6 +25,9 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from .forms import UserRegistrationForm
+from django.http import JsonResponse
+from .utils import valida_cpf
+import requests
 
 #Jonas - Metodo do Header
 def index(request):
@@ -75,3 +78,32 @@ def register_visit(request):
 
 def register_protective_measure(request):
     return render(request, "register_protective_measure.html")
+
+def validar_cpf(request):
+    if request.method == 'POST':
+        cpf_digitado = request.POST.get('cpf', '')
+        cpf_valido = valida_cpf(cpf_digitado)
+
+        # Retorna um JSON indicando se o CPF é válido ou não
+        return JsonResponse({'cpf_valido': cpf_valido})
+
+    # Lida com requisições GET, se necessário
+    return render(request, 'seu_template.html')
+
+def list_protective_measures(request):
+    url = 'https://api-eproc-senac.vercel.app/protective-measures'
+    
+    # Fazendo a requisição GET
+    response = requests.get(url)
+    
+    # Verificando se a requisição foi bem-sucedida (código de status 200)
+    if response.status_code == 200:
+        medidas_protetivas = response.json()  # Convertendo a resposta para JSON
+    else:
+        medidas_protetivas = []  # Tratamento para caso de erro
+    
+    # Renderizando o template com os dados recebidos da API
+    return render(request, 'list_protective_measures.html', {'medidas_protetivas': medidas_protetivas})
+
+
+

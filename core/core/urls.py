@@ -27,5 +27,6 @@ urlpatterns = [
     path('register_person/', views.register_person, name='register_person'), # Register person
     path('register_visit/', views.register_visit, name='register_visit'), # Register visit      
     path('map_direction/', views.map_direction, name='map_direction'), # Maps
-    path('register_protective_measure/', views.register_protective_measure, name='register_protective_measure')
+    path('register_protective_measure/', views.register_protective_measure, name='register_protective_measure'),
+    path('list_protective_measures/', views.list_protective_measures, name='listar_medidas_protetivas'),
 ]

@@ -83,9 +83,6 @@ header {
             -moz-appearance: textfield;
         }
 
-        .btn-tema {
-            display: none;
-        }
 
         @media (max-width: 991px) {
             header {
@@ -100,10 +97,6 @@ header {
 
             .buscar-servico {
                 display: none;
-            }
-
-            .btn-tema {
-                display: block;
             }
 
             .navbar-toggler {
