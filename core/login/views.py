@@ -100,8 +100,7 @@ def register_protective_measure(request):
             messages.add_message(request, constants.ERROR, "Número do processo inválido.")
             print(numero_processo.isdigit())
             return redirect('/register_protective_measure')
-        
-        
+                
         
         messages.add_message(request, constants.SUCCESS, "Registrado com sucesso.")
         return redirect('/register_protective_measure')
