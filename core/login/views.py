@@ -77,6 +77,7 @@ def register_person(request):
 def register_visit(request):
     return render(request, "register_visit.html")
 
+<<<<<<< HEAD
 def register_protective_measure(request):
     if request.method == 'GET':
         return render(request, "register_protective_measure.html")
@@ -139,3 +140,11 @@ def list_protective_measures(request):
 
 
 
+=======
+
+from django.contrib.auth import logout
+
+def logout_view(request):
+    logout(request)  # Realiza o logout do usuário
+    return redirect('login')  # Redireciona para a página de login após o logout
+>>>>>>> b4617b48d821a30a4b46c956fc7c4cd65797e1fa
