@@ -17,6 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from login import views
+from django.contrib import admin
+from django.urls import path, include
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,4 +31,6 @@ urlpatterns = [
     path('register_person/', views.register_person, name='register_person'), # Register person
     path('register_visit/', views.register_visit, name='register_visit'), # Register visit      
     path('map_direction/', views.map_direction, name='map_direction'), # Maps
+    path('login/', include('login.url')),
+    
 ]

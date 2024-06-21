@@ -61,7 +61,8 @@ select {
 }
 
 #rg::placeholder,
-#cpf::placeholder {
+#cpf::placeholder, 
+#data-nascimento::placeholder {
   opacity: 1 !important;
 }
 
@@ -88,6 +89,33 @@ input[type="number"] {
 .btn-tema {
   display: none!important;
 }
+
+
+
+.dropdown {
+  position: absolute!important;
+  margin-top: 2.5rem;
+  width: 23%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  max-height: 150px;
+  overflow-y: auto;
+  z-index: 2;
+  background-color: white;
+  display: none;
+}
+
+.dropdown-item {
+  padding: 10px;
+  cursor: pointer;
+
+}
+
+.dropdown-item:hover {
+  background-color: #f1f1f1;
+}
+
+
 
 
 @media (max-width: 991px) {

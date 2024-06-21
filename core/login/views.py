@@ -26,6 +26,24 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from .forms import UserRegistrationForm
 
+from django.shortcuts import render
+
+
+
+import requests
+from django.http import JsonResponse
+
+def buscar_cidades(request):
+    termo = request.GET.get('termo', '')
+    if termo:
+        response = requests.get(f'https://servicodados.ibge.gov.br/api/v1/localidades/municipios')
+        todas_cidades = response.json()
+        cidades_filtradas = [
+            {'nome': cidade['nome'], 'estado': cidade['microrregiao']['mesorregiao']['UF']['sigla']}
+            for cidade in todas_cidades if termo.lower() in cidade['nome'].lower()
+        ]
+        return JsonResponse(cidades_filtradas, safe=False)
+    return JsonResponse([], safe=False)
 #Jonas - Metodo do Header
 def index(request):
     if request.method == "POST":
