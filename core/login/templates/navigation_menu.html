@@ -1,75 +1,69 @@
-{% extends 'index.html' %} {% load static %} {% block content %}
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'assets/bootstrap.css' %}"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'assets/navigation_menu.css' %}"
-    />
+    <title>Menu Principal</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/bootstrap.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/navigation_menu.css' %}" />
   </head>
 
   <body class="background_main_menu">
     <div class="main_menu">
       <ul class="main_menu_ul">
         <li class="main_menu_li">
-          <a class="main_menu_a" href="">
+          <a class="main_menu_a" href="{% url 'register_protective_measure' %}">
             <figure>
-              <img
-                class="desktop-img"
-                src="../static/img/cadastrar_medida_protetiva.svg"
-                alt=""
-              />
+              <img class="desktop-img" src="{% static 'img/cadastrar_medida_protetiva.svg' %}" alt="Cadastrar Medida Protetiva" />
             </figure>
-            <i class="mobile-icon"
-              ><figure>
-                <img
-                  src="../static/img/cadastrar_medida_protetiva_mobile.svg"
-                  alt=""
-                /></figure
-            ></i>
+            <i class="mobile-icon">
+              <figure>
+                <img src="{% static 'img/cadastrar_medida_protetiva_mobile.svg' %}" alt="Cadastrar Medida Protetiva Mobile" />
+              </figure>
+            </i>
             <span class="mobile-text">Cadastrar Medida Protetiva</span>
           </a>
         </li>
         <li>
           <a class="main_menu_a" href="{% url 'register_person' %}">
             <figure>
-              <img class="desktop-img" src="../static/img/cadastrar_pessoa.svg" alt="" />
+              <img class="desktop-img" src="{% static 'img/cadastrar_pessoa.svg' %}" alt="Cadastrar Pessoa" />
             </figure>
-            <i class="mobile-icon"
-              ><figure><img src="../static/img/cadastrar_pessoa_mobile.svg" alt="" /></figure
-            ></i>
+            <i class="mobile-icon">
+              <figure>
+                <img src="{% static 'img/cadastrar_pessoa_mobile.svg' %}" alt="Cadastrar Pessoa Mobile" />
+              </figure>
+            </i>
             <span class="mobile-text">Cadastrar Pessoa</span>
           </a>
         </li>
         <li>
           <a class="main_menu_a" href="{% url 'register_visit' %}">
             <figure>
-              <img class="desktop-img" src="../static/img/registro_de_visita.svg" alt="" />
+              <img class="desktop-img" src="{% static 'img/registro_de_visita.svg' %}" alt="Registrar Visita" />
             </figure>
-            <i class="mobile-icon"
-              ><figure><img src="../static/img/registrar_visita_mobile.svg" alt="" /></figure
-            ></i>
+            <i class="mobile-icon">
+              <figure>
+                <img src="{% static 'img/registrar_visita_mobile.svg' %}" alt="Registrar Visita Mobile" />
+              </figure>
+            </i>
             <span class="mobile-text">Registrar Visita</span>
           </a>
         </li>
         <li>
           <a class="main_menu_a" href="{% url 'map_direction' %}">
             <figure>
-              <img class="desktop-img" src="../static/img/definicao_rota.svg" alt="" />
+              <img class="desktop-img" src="{% static 'img/definicao_rota.svg' %}" alt="Definir Rota" />
             </figure>
-            <i class="mobile-icon"
-              ><figure><img src="../static/img/definir_rota_mobile.svg" alt="" /></figure
-            ></i>
+            <i class="mobile-icon">
+              <figure>
+                <img src="{% static 'img/definir_rota_mobile.svg' %}" alt="Definir Rota Mobile" />
+              </figure>
+            </i>
             <span class="mobile-text">Definir Rota</span>
           </a>
         </li>
@@ -80,5 +74,3 @@
   </body>
 </html>
 {% endblock %}
-
-

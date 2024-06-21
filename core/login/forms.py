@@ -25,3 +25,6 @@ class UserRegistrationForm(forms.ModelForm):
             raise forms.ValidationError(
                 "As senhas não coincidem."
             )  # Passwords do not match
+
+
+
