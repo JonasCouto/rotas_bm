@@ -17,14 +17,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from login import views
-<<<<<<< HEAD
-from django.contrib import admin
-from django.urls import path, include
-
-
-=======
-from django.contrib.auth.decorators import login_required
->>>>>>> 96a35c551361ea48fe78b748505e8a010d3b791c
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,12 +27,7 @@ urlpatterns = [
     path('register_person/', views.register_person, name='register_person'), # Register person
     path('register_visit/', views.register_visit, name='register_visit'), # Register visit      
     path('map_direction/', views.map_direction, name='map_direction'), # Maps
-<<<<<<< HEAD
-    path('login/', include('login.url')),
-    
+    path('register_protective_measure/', views.register_protective_measure, name='register_protective_measure'),  # Registrar medida protetiva
+    path('list_protective_measures/', views.list_protective_measures, name='listar_medidas_protetivas'),  # Listar medidas protetivas
+    path('login/', include('login.urls')),  # Incluir as configurações de URL do aplicativo 'login'
 ]
-=======
-    path('register_protective_measure/', views.register_protective_measure, name='register_protective_measure'),
-    path('list_protective_measures/', views.list_protective_measures, name='listar_medidas_protetivas'),
-    ]
->>>>>>> 96a35c551361ea48fe78b748505e8a010d3b791c
