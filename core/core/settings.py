@@ -131,6 +131,7 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+
 MESSAGE_TAGS = {
     constants.DEBUG: 'alert-primary',
     constants.ERROR: 'alert-danger',

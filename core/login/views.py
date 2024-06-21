@@ -77,6 +77,7 @@ def register_person(request):
 def register_visit(request):
     return render(request, "register_visit.html")
 
+
 def register_protective_measure(request):
     if request.method == 'GET':
         return render(request, "register_protective_measure.html")
