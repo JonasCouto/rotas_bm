@@ -23,6 +23,7 @@ from django.shortcuts import render
 # core/views.py
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.messages import constants
 from django.contrib.auth import authenticate, login
 from .forms import UserRegistrationForm
 from django.http import JsonResponse
@@ -77,7 +78,38 @@ def register_visit(request):
     return render(request, "register_visit.html")
 
 def register_protective_measure(request):
-    return render(request, "register_protective_measure.html")
+    if request.method == 'GET':
+        return render(request, "register_protective_measure.html")
+    
+    elif request.method == 'POST':
+        numero_processo = request.POST.get('numero_processo')
+        numero_documento = request.POST.get('numero_documento')
+        nome_vitima = request.POST.get('nome_vitima')
+        nome_agressor = request.POST.get('nome_agressor')
+        orgao_expedidor = request.POST.get('orgao_expedidor')
+        tipo = request.POST.get('tipo')
+        data_registro = request.POST.get('data_registro')
+        hora_registro = request.POST.get('hora_registro')
+        fato = request.POST.get('fato')
+        inicio = request.POST.get('inicio')
+        data_expiracao = request.POST.get('data_expiracao')
+        form_frida = request.POST.get('form_frida')
+        status = request.POST.get('status')
+
+        if len(numero_processo) != 7 or numero_processo.isdigit() == False:
+            messages.add_message(request, constants.ERROR, "Número do processo inválido.")
+            print(numero_processo.isdigit())
+            return redirect('/register_protective_measure')
+        
+        
+        
+        messages.add_message(request, constants.SUCCESS, "Registrado com sucesso.")
+        return redirect('/register_protective_measure')
+
+
+# numero_processo, numero_documento, nome_vitima, nome_agressor, 
+# orgao_expedidor, tipo, data_registro, 
+# hora_registro, fato, inicio, data-expiracao, form-frida, status
 
 def validar_cpf(request):
     if request.method == 'POST':
@@ -104,6 +136,7 @@ def list_protective_measures(request):
     
     # Renderizando o template com os dados recebidos da API
     return render(request, 'list_protective_measures.html', {'medidas_protetivas': medidas_protetivas})
+
 
 
 
