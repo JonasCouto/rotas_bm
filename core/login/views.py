@@ -72,3 +72,10 @@ def register_person(request):
 #Jonathn - Metodo de Registrar Visita
 def register_visit(request):
     return render(request, "register_visit.html")
+
+
+from django.contrib.auth import logout
+
+def logout_view(request):
+    logout(request)  # Realiza o logout do usuário
+    return redirect('login')  # Redireciona para a página de login após o logout

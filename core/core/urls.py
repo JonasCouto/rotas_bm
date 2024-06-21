@@ -17,14 +17,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from login import views
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('', include('login.urls')),
     path("user/", views.index, name="register"),  # Inclua as URLs do aplicativo 'login'
     path('',views.login_view, name='login'),  # Inclua as URLs do aplicativo 'login'
-    path('navigation_menu/', views.navigation_menu, name='navigation_menu'), # Panel settings
-    path('register_person/', views.register_person, name='register_person'), # Register person
-    path('register_visit/', views.register_visit, name='register_visit'), # Register visit      
-    path('map_direction/', views.map_direction, name='map_direction'), # Maps
+    path('logout/', views.logout_view, name='logout'),
+    
+    path('navigation_menu/', login_required(views.navigation_menu), name='navigation_menu'), # Panel settings
+    path('register_person/', login_required(views.register_person), name='register_person'), # Register person
+    path('register_visit/', login_required(views.register_visit), name='register_visit'), # Register visit      
+    path('map_direction/', login_required(views.map_direction), name='map_direction'), # Maps
+
+
 ]
