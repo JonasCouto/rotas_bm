@@ -1,0 +1,32 @@
+<!-- templates/listar_medidas_protetivas.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listagem de Medidas Protetivas</title>
+</head>
+<body>
+    <h1>Listagem de Medidas Protetivas</h1>
+    
+    <ul>
+        {% for medida in medidas_protetivas %}
+            <li>
+                <strong>Número do Processo:</strong> {{ medida.numProcesso }} <br>
+                <strong>Número do Ocorrência:</strong> {{ medida.numOcorrencia }} <br>
+                <strong>Nome da Vítima:</strong> {{ medida.vitimaId }} <br>
+                <strong>Nome do Agressor:</strong> {{ medida.agressorId }} <br>
+                <strong>Órgão Expedidor:</strong> {{ medida.orgaoExpedidor }} <br>
+                <strong>Tipo Ação:</strong> {{ medida.tipoAcao }} <br>
+                <strong>Primeira Visita:</strong> {{ medida.primeiraVisita }} <br>
+                <strong>Nível FRIDA:</strong> {{ medida.nivelFrida }} <br>
+                <strong>Status:</strong> {{ medida.status }} <br>
+                <strong>Criado em:</strong> {{ medida.criadoEm }} <br>
+                <strong>Expira em:</strong> {{ medida.expiraEm }} <br>
+            </li>
+            <hr>
+        {% endfor %}
+    </ul>
+</body>
+</html>

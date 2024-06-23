@@ -1,0 +1,485 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastrar Pessoa</title>
+    {% load static %}
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.0.7/css/all.css"
+    />
+    <link
+    rel="stylesheet"
+    type="text/css"
+    href="{% static 'assets/register_person.css' %}"
+  />
+    {% comment %} <link rel="stylesheet" href="{% static 'assets/bootstrap.css' %}" /> {% endcomment %}
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+      integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMgE8AMbr6ZivZp+AzBuJg7STl5ow5pXkk+1PiD"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <header class="d-flex justify-content-lg-around h-auto">
+      <div
+        class="h-75 w-100 d-flex justify-content-center justify-content-md-center justify-content-sm-center align-items-center flex-md-wrap flex-sm-wrap flex-wrap flex-lg-nowrap text-md-center text-center text-lg-start text-sm-center ps-md-5 ps-sm-5"
+      >
+        <div style="width: 8%; height: 80%" class="col-md-12 col-sm-12 col-12">
+          <img
+            class="h-100 w-100"
+            src="{% static 'img/logo-brigada-militar.png' %}"
+            alt="Logo Brigada Militar"
+          />
+        </div>
+        <div
+          class="titulo-brigada-militar col-md-12 h-50 d-flex justify-content-center flex-column col-sm-12 col-12 p-lg-3"
+        >
+          <span>BRIGADA MILITAR</span>
+        </div>
+      </div>
+      <div class="logout" style="width: 30%">
+         <a style = "cursor:pointer;text-decoration:none " href="">
+          <!-- Adicione onde deseja exibir o link de logout -->
+         
+            <span
+              
+              class="input-group-text bg-transparent border-0 d-flex flex-column "
+              style="background-color: #f5f5f4df; border: none;"
+              >
+              <img
+                src="{% static 'img/logout-icon.png' %}"
+                alt="Deslogar"
+                style="width: 40px; height:35px;">
+                <span class = "text-light fw-bold">
+                  Logout
+                </span>
+            </span>
+          </a>
+      </div>
+    </header>
+    <nav
+      class="navbar navbar-expand-lg w-100"
+      style="background-color: #d9d9d9"
+    >
+      <div class="container-fluid">
+        <button
+          class="navbar-toggler border-0"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <img
+            src="{% static 'img/bars-solid.svg' %}"
+            alt="Menu"
+            class="navbar-toggler-icon"
+          />
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav accordion justify-content-evenly w-100">
+            <li class="nav-item">
+              <a class="nav-link" href="#">CADASTRAR MEDIDA PROTETIVA</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">REGISTRAR VISITA</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link link-atual" href="#"
+                >CADASTRAR PESSOA E DEFINIR ROTA</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link bg-" href="#">DEFINIR ROTA</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container container-main w-50">
+      <div class="row d-flex flex-column justify-content-cente pb-5">
+        <div class="col-1 w-100">
+          <h1
+            style="font-size: 20px; font-weight: 600; font-family: 'Inter'"
+            class="pb-2 pt-5"
+          >
+            CADASTRAR PESSOA
+          </h1>
+          <div class="d-flex">
+            <div
+              class="w-75 rounded"
+              style="border-top: 5px solid #dec208"
+            ></div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <form action="">
+            <div class="mb-3">
+              <label
+                for="numero-processo"
+                class="form-label text-black fw-medium"
+                >Número do processo:</label
+              >
+              <input
+                type="text"
+                class="form-control border-1 border-dark shadow-sm"
+                id="numero-processo"
+                placeholder="Nº do processo"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="nome" class="form-label text-black fw-medium"
+                >Nome Completo:</label
+              >
+              <input
+                type="text"
+                class="form-control border-1 border-dark shadow-sm"
+                id="nome"
+                placeholder="Nome Completo"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="documento" class="form-label text-black fw-medium"
+                >Documento:</label
+              >
+              <div class="d-flex justify-content-between">
+                <input
+                  type="number"
+                  class="form-control border-1 border-dark shadow-sm"
+                  style="width: 48%"
+                  id="cpf"
+                  placeholder="CPF"
+                  maxlength="11"
+                />
+                <input
+                  type="number"
+                  class="form-control border-1 border-dark shadow-sm"
+                  style="width: 48%"
+                  id="rg"
+                  placeholder="RG"
+                  maxlength="12"
+                />
+              </div>
+            </div>
+            <div class="mb-3">
+              <label
+                for="filiacao-paterna"
+                class="form-label text-black fw-medium"
+                >Filiação Paterna:</label
+              >
+              <input
+                type="text"
+                class="form-control border-1 border-dark shadow-sm"
+                id="filiacao-paterna"
+                placeholder="Filiação Paterna"
+              />
+            </div>
+            <div class="mb-3">
+              <label
+                for="filiacao-materna"
+                class="form-label text-black fw-medium"
+                >Filiação Materna:</label
+              >
+              <input
+                type="text"
+                class="form-control border-1 border-dark shadow-sm"
+                id="filiacao-materna"
+                placeholder="Filiação Materna"
+              />
+            </div>
+            <div class="mb-3">
+              <label
+                for="naturalidade"
+                class="form-labeltext-black fw-medium w-50"
+              >
+                Naturalidade:
+              </label>
+              <label
+                for="data-nascimento"
+                class="form-label text-black fw-medium"
+              >
+                Data de Nascimento:
+              </label>
+              <div class="d-flex justify-content-between">
+                <input
+                type="text"
+                class="form-control border-1 border-dark shadow-sm"
+                style="width: 48%"
+                id="naturalidade"
+                placeholder="Digite a naturalidade"
+                autocomplete="off"
+                list="cidades-list"
+            />
+            <datalist id="cidades-list"></datalist> 
+                <input
+                type="date"
+                class="form-control border-1 border-dark shadow-sm"
+                style="width: 48%"
+                id="data-nascimento" 
+              />
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="sexo" class="form-label text-black fw-medium w-50">
+                Sexo:
+              </label>
+              <label for="estado-civil" class="form-label text-black fw-medium">
+                Estado Civil:
+              </label>
+              <div class="d-flex justify-content-between">
+                <select
+                  class="form-select border-1 border-dark shadow-sm"
+                  style="width: 48%"
+                  id="genero-select"
+                  aria-label="Selecione o Gênero"
+                >
+                  <option selected disabled class="placeholder-mobile">
+                    Selecione
+                  </option>
+                  <option value="1">Masculino</option>
+                  <option value="2">Feminino</option>
+                  <option value="3">Outro</option>
+                </select>
+                <select
+                  class="form-select border-1 border-dark shadow-sm"
+                  style="width: 48%"
+                  id="estado-civil-select"
+                  aria-label="Default select example"
+                >
+                  <option value="0" disabled selected>Selecione</option>
+                  <option value="1">Solteiro</option>
+                  <option value="2">Casado</option>
+                  <option value="3">Divorciado</option>
+                  <option value="4">Viúvo</option>
+                </select>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="cep" class="form-label text-black fw-medium"
+                >CEP:</label
+              >
+              <input
+                type="number"
+                class="form-control border-1 border-dark shadow-sm"
+                maxlength="8"
+                id="cep"
+                placeholder="CEP"
+              />
+              <span id="cep-error" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+              <label
+                for="residencia"
+                class="form-label text-black fw-medium w-75"
+                >Residência:</label
+              >
+              <label
+                for="numero-residencia"
+                class="form-label text-black fw-medium"
+                >Número:</label
+              >
+              <div class="d-flex justify-content-between">
+                <input
+                  type="text"
+                  class="form-control border-1 border-dark shadow-sm hover"
+                  style="width: 73%"
+                  id="residencia"
+                  readonly
+                  placeholder="Residência"
+                />
+                <input
+                  type="number"
+                  class="form-control border-1 border-dark shadow-sm"
+                  style="width: 23%"
+                  id="numero-residencia"
+                  placeholder="Nº"
+                />
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="bairro" class="form-label text-black fw-medium w-50"
+                >Bairro:</label
+              >
+              <label for="complemento" class="form-label text-black fw-medium"
+                >Complemento</label
+              >
+              <div class="d-flex justify-content-between">
+                <input
+                  type="text"
+                  class="form-control border-1 border-dark shadow-sm"
+                  style="width: 48%"
+                  id="bairro"
+                  readonly
+                  placeholder="Bairro"
+                />
+                <input
+                  type="text"
+                  class="form-control border-1 border-dark shadow-sm"
+                  style="width: 48%"
+                  id="complemento"
+                  placeholder="Complemento"
+                />
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="cidade" class="form-label text-black fw-medium"
+                >Cidade:</label
+              >
+              <input
+                type="text"
+                class="form-control border-1 border-dark shadow-sm"
+                readonly
+                id="cidade"
+                placeholder="Cidade"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="latitude" class="form-label text-black fw-medium w-50"
+                >Latitude:</label
+              >
+              <label for="longitude" class="form-label text-black fw-medium"
+                >Longitude:</label
+              >
+              <div class="d-flex justify-content-between">
+                <input
+                  type="text"
+                  class="form-control border-1 border-dark shadow-sm"
+                  style="width: 48%"
+                  id="latitude"
+                  readonly
+                  placeholder="Latitude"
+                />
+                <input
+                  type="text"
+                  class="form-control border-1 border-dark shadow-sm"
+                  style="width: 48%"
+                  id="longitude"
+                  readonly
+                  placeholder="Longitude"
+                />
+              </div>
+            </div>
+            <div class="mb-3">
+              <label
+                for="nacionalidade"
+                class="form-label text-black fw-medium"
+              >
+                Nacionalidade:
+              </label>
+              <select
+                class="form-select border-1 border-dark shadow-sm"
+                id="nacionalidade-select"
+                aria-label="Selecione a Nacionalidade"
+              >
+                <option selected disabled class="placeholder-mobile" value="0">
+                  Nacionalidade
+                </option>
+                <option value="1">Brasileira</option>
+                <option value="2">Estrangeira</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label
+                for="instrucao"
+                class="form-label text-black fw-medium w-50"
+                >Instrução:</label
+              >
+              <label for="profissao" class="form-label text-black fw-medium">
+                Profissão:
+              </label>
+              <div class="d-flex justify-content-between">
+                <input
+                  type="text"
+                  class="form-control border-1 border-dark shadow-sm"
+                  style="width: 48%"
+                  id="instrucao"
+                  placeholder="Instrução"
+                />
+                <input
+                  type="text"
+                  class="form-control border-1 border-dark shadow-sm"
+                  style="width: 48%"
+                  id="profissao"
+                  placeholder="Profissão"
+                />
+              </div>
+            </div>
+            <div class="mb-3">
+              <label
+                for="local-trabalho"
+                class="form-label text-black fw-medium"
+              >
+                Local de Trabalho:
+              </label>
+              <input
+                type="text"
+                class="form-control border-1 border-dark shadow-sm"
+                id="local-trabalho"
+                placeholder="Local de Trabalho"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="telefone" class="form-label text-black fw-medium w-50"
+                >Telefone:</label
+              >
+              <label for="email" class="form-label text-black fw-medium">
+                Email:
+              </label>
+              <div class="d-flex justify-content-between">
+                <input
+                  type="tel"
+                  class="form-control border-1 border-dark shadow-sm"
+                  style="width: 48%"
+                  id="telefone"
+                  placeholder="(00) 00000-0000"
+                  aria-placeholder="Telefone"
+                />
+                <input
+                  type="email"
+                  class="form-control border-1 border-dark shadow-sm"
+                  style="width: 48%"
+                  id="email"
+                  placeholder="Email"
+                />
+              </div>
+            </div>
+            <div class="buttons mb-3 d-flex justify-content-center col-12 p-5">
+              <button
+                type="submit"
+                class="btn btn-warning border-1 border-dark shadow-sm fw-bold col-lg-4 col-md-5 col-sm-6 me-md-4 me-sm-3"
+              >
+                ENTRAR
+              </button>
+              <button
+                type="reset"
+                class="btn border-1 border-dark shadow-sm fw-bold col-lg-4 col-md-5 col-sm-6"
+              >
+                CANCELAR
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+<!-- Load jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- LINK DO ARQUIVO BOOTSTRAP.JS -->
+    {% comment %} <script src="{% static 'assets/bootstrap.js' %}"></script> {% endcomment %}
+    <script src="{% static 'assets/register_person.js' %}"></script>
+  </body>
+</html>
