@@ -1,33 +1,10 @@
-from django.shortcuts import render
-
-# Create your views here.
-
-from django.shortcuts import render
-
-# def login(request):
-#     return render(request, "login.html")
-
-from django.shortcuts import render
-
-# Create your views here.
-
-
-# def index(request):
-#     return render(request, "index.html")
-
-
-# def login(request):
-#     return render(request, "login.html")
-
-
-# core/views.py
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.messages import constants
 from django.contrib.auth import authenticate, login
 from .forms import UserRegistrationForm
 from django.http import JsonResponse
-from .utils import valida_cpf
+from datetime import datetime
 import requests
 
 #Jonas - Metodo do Header
@@ -80,47 +57,83 @@ def register_visit(request):
 
 def register_protective_measure(request):
     if request.method == 'GET':
-        return render(request, "register_protective_measure.html")
+
+        try:
+            response_vitimas = requests.get('https://api-eproc-senac.vercel.app/victims')
+            response_agressores = requests.get('https://api-eproc-senac.vercel.app/agressors')
+
+            if response_vitimas.status_code == 200 and response_agressores.status_code == 200:
+                vitimas = response_vitimas.json()
+                agressores = response_agressores.json()
+            else:
+                vitimas = []
+                agressores = []
+                messages.add_message(request, messages.ERROR, 'Não foi possível obter os nomes de vítimas e agressores.')
+        
+        except requests.exceptions.RequestException as e:
+            vitimas = []
+            agressores = []
+            messages.add_message(request, messages.ERROR, f'Erro ao conectar com a API: {e}')
+
+        return render(request, "register_protective_measure.html", {'vitimas': vitimas, 'agressores': agressores})
     
     elif request.method == 'POST':
-        numero_processo = request.POST.get('numero_processo')
-        numero_documento = request.POST.get('numero_documento')
-        nome_vitima = request.POST.get('nome_vitima')
-        nome_agressor = request.POST.get('nome_agressor')
-        orgao_expedidor = request.POST.get('orgao_expedidor')
-        tipo = request.POST.get('tipo')
-        data_registro = request.POST.get('data_registro')
-        hora_registro = request.POST.get('hora_registro')
-        fato = request.POST.get('fato')
-        inicio = request.POST.get('inicio')
-        data_expiracao = request.POST.get('data_expiracao')
+
+        numero_processo = request.POST.get('numero_processo').strip()
+        numero_ocorrencia = request.POST.get('numero_ocorrencia').strip()
+        nome_vitima = request.POST.get('nome_vitima').strip()
+        nome_agressor = request.POST.get('nome_agressor').strip()
+        orgao_expedidor = request.POST.get('orgao_expedidor').strip()
+        tipo = request.POST.get('tipo').strip()
+        data_registro = request.POST.get('data_registro').strip()
+        hora_registro = request.POST.get('hora_registro').strip()
+        horario_expiracao = request.POST.get('horario_expiracao').strip()
+        data_expiracao = request.POST.get('data_expiracao').strip()
         form_frida = request.POST.get('form_frida')
         status = request.POST.get('status')
 
-        if len(numero_processo) != 7 or numero_processo.isdigit() == False:
-            messages.add_message(request, constants.ERROR, "Número do processo inválido.")
-            print(numero_processo.isdigit())
+        campos = request.POST.items()
+        print(status)
+
+        for campo, valor in campos:
+            if not valor.strip():
+                messages.add_message(request, constants.ERROR, 'Algum campo está vazio ou em branco.')
+                return redirect('/register_protective_measure')
+
+        if numero_processo.isdigit() == False:
+            messages.add_message(request, constants.ERROR, "Número do processo deve ser apenas números.")
             return redirect('/register_protective_measure')
-                
         
-        messages.add_message(request, constants.SUCCESS, "Registrado com sucesso.")
-        return redirect('/register_protective_measure')
+        if numero_ocorrencia.isdigit() == False:
+            messages.add_message(request, constants.ERROR, "Número da ocorrência deve ser apenas números.")
+            return redirect('/register_protective_measure')
+       
+        data_registro_iso = f"{data_registro}T{hora_registro}:00.000Z"
+        data_expiracao_iso = f"{data_expiracao}T{horario_expiracao}:00.000Z"
 
+        data = {
+            'vitimaId': int(nome_vitima),
+            'agressorId': int(nome_agressor),
+            'tipoAcao': tipo,  
+            'numProcesso': int(numero_processo),  
+            'numOcorrencia': int(numero_ocorrencia),
+            'orgaoExpedidor': orgao_expedidor,
+            'primeiraVisita': False,
+            'nivelFrida': int(form_frida),
+            'status': status,
+            'criadoEm': data_registro_iso,
+            'expiraEm': data_expiracao_iso
+        }
 
-# numero_processo, numero_documento, nome_vitima, nome_agressor, 
-# orgao_expedidor, tipo, data_registro, 
-# hora_registro, fato, inicio, data-expiracao, form-frida, status
+        response = requests.post('https://api-eproc-senac.vercel.app/protective-measures', json=data)       
 
-def validar_cpf(request):
-    if request.method == 'POST':
-        cpf_digitado = request.POST.get('cpf', '')
-        cpf_valido = valida_cpf(cpf_digitado)
+        if response.status_code == 201:
+            messages.add_message(request, constants.SUCCESS, "Registrado com sucesso.")
+            return redirect('/register_protective_measure')
+    
+        else:
+            return JsonResponse(response.json(), status=response.status_code)
 
-        # Retorna um JSON indicando se o CPF é válido ou não
-        return JsonResponse({'cpf_valido': cpf_valido})
-
-    # Lida com requisições GET, se necessário
-    return render(request, 'seu_template.html')
 
 def list_protective_measures(request):
     url = 'https://api-eproc-senac.vercel.app/protective-measures'
@@ -128,13 +141,11 @@ def list_protective_measures(request):
     # Fazendo a requisição GET
     response = requests.get(url)
     
-    # Verificando se a requisição foi bem-sucedida (código de status 200)
     if response.status_code == 200:
-        medidas_protetivas = response.json()  # Convertendo a resposta para JSON
+        medidas_protetivas = response.json()  
     else:
-        medidas_protetivas = []  # Tratamento para caso de erro
+        medidas_protetivas = []  
     
-    # Renderizando o template com os dados recebidos da API
     return render(request, 'list_protective_measures.html', {'medidas_protetivas': medidas_protetivas})
 
 
