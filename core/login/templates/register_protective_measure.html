@@ -11,6 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"
         integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMgE8AMbr6ZivZp+AzBuJg7STl5ow5pXkk+1PiD" crossorigin="anonymous" />
+    <link rel="icon" href="{% static 'img/logo-brigada-militar.png' %}" type="image/x-icon">
 </head>
 <body>
     <header class="d-flex justify-content-lg-around h-auto">
@@ -42,16 +43,16 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav accordion justify-content-evenly w-100">
                     <li class="nav-item">
-                        <a class="nav-link link-atual" href="#">CADASTRAR MEDIDA PROTETIVA</a>
+                        <a class="nav-link link-atual" href="{% url 'register_protective_measure' %}">CADASTRAR MEDIDA PROTETIVA</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">REGISTRAR VISITA</a>
+                        <a class="nav-link" href="{% url 'register_visit' %}">REGISTRAR VISITA</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">CADASTRAR PESSOA E DEFINIR ROTA</a>
+                        <a class="nav-link" href="{% url 'register_person' %}">CADASTRAR PESSOA E DEFINIR ROTA</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">DEFINIR ROTA</a>
+                        <a class="nav-link" href="{% url 'map_direction' %}">DEFINIR ROTA</a>
                     </li>
                 </ul>
             </div>
@@ -79,67 +80,87 @@
                     {% endif %}
                     <div class="mb-3">
                         <label for="numero-processo" class="form-label text-black fw-medium">Número do processo:</label>
-                        <input type="text" class="form-control border-1 border-dark shadow-sm" id="numero-processo" name="numero_processo" placeholder="Número do processo">
+                        <input type="text" class="form-control border-1 border-dark shadow-sm" id="numero-processo" name="numero_processo" placeholder="Número do processo" required>
                     </div>
                     <div class="mb-3">
-                        <label for="numero-documento" class="form-label text-black fw-medium">Número do documento:</label>
-                        <input type="text" class="form-control border-1 border-dark shadow-sm" id="numero-documento" name="numero_documento" placeholder="Número do documento">
+                        <label for="numero-documento" class="form-label text-black fw-medium">Número da ocorrência:</label>
+                        <input type="text" class="form-control border-1 border-dark shadow-sm" id="numero-ocorrencia" name="numero_ocorrencia" placeholder="Número da ocorrência" required>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="nome-vitima" class="form-label text-black fw-medium">Nome da vítima:</label>
-                            <input type="text" class="form-control border-1 border-dark shadow-sm" id="nome-vitima" name="nome_vitima" placeholder="Nome da vítima">
+                            <select class="form-control border-1 border-dark shadow-sm" id="nome-vitima" name="nome_vitima" required>
+                                <option value="">Selecione a vítima</option>
+                                {% for vitima in vitimas %}
+                                    <option value="{{ vitima.id }}">{{ vitima.nome }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                         <div class="col-md-6">
                             <label for="nome-agressor" class="form-label text-black fw-medium">Nome do agressor:</label>
-                            <input type="text" class="form-control border-1 border-dark shadow-sm" id="nome-agressor" name="nome_agressor" placeholder="Nome do agressor">
+                            <select class="form-control border-1 border-dark shadow-sm" id="nome-agressor" name="nome_agressor" required>
+                                <option value="">Selecione o agressor</option>
+                                {% for agressor in agressores %}
+                                    <option value="{{ agressor.id }}">{{ agressor.nome }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                     </div>
+                    
                     <div class="mb-3">
                         <label for="orgao-expedidor" class="form-label text-black fw-medium">Orgão expedidor:</label>
-                        <input type="text" class="form-control border-1 border-dark shadow-sm" id="orgao-expedidor" name="orgao_expedidor" placeholder="Orgão expedidor">
+                        <input type="text" class="form-control border-1 border-dark shadow-sm" id="orgao-expedidor" name="orgao_expedidor" placeholder="Orgão expedidor" required>
                     </div>
                     <div class="mb-3">
                         <label for="tipo" class="form-label text-black fw-medium">Tipo:</label>
-                        <input type="text" class="form-control border-1 border-dark shadow-sm" id="tipo" name="tipo" placeholder="Tipo">
+                        <input type="text" class="form-control border-1 border-dark shadow-sm" id="tipo" name="tipo" placeholder="Tipo" required>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="data-registro" class="form-label text-black fw-medium">Data do registro:</label>
-                            <input type="date" class="form-control border-1 border-dark shadow-sm" id="data-registro" name="data_registro">
+                            <input type="date" class="form-control border-1 border-dark shadow-sm" id="data-registro" name="data_registro" required>
                         </div>
                         <div class="col-md-6">
                             <label for="hora-registro" class="form-label text-black fw-medium">Hora do registro:</label>
-                            <input type="time" class="form-control border-1 border-dark shadow-sm" id="hora-registro" name="hora_registro">
+                            <input type="time" class="form-control border-1 border-dark shadow-sm" id="hora-registro" name="hora_registro" required>
                         </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="fato" class="form-label text-black fw-medium">Fato:</label>
-                        <input type="text" class="form-control border-1 border-dark shadow-sm" id="fato" name="fato" placeholder="Fato">
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="inicio" class="form-label text-black fw-medium">Início:</label>
-                            <input type="date" class="form-control border-1 border-dark shadow-sm" id="inicio" name="inicio">
+                            <label for="data-expiracao" class="form-label text-black fw-medium">Data de expiração:</label>
+                            <input type="date" class="form-control border-1 border-dark shadow-sm" id="data-expiracao" name="data_expiracao" required>
                         </div>
                         <div class="col-md-6">
-                            <label for="data-expiracao" class="form-label text-black fw-medium">Data de expiração:</label>
-                            <input type="date" class="form-control border-1 border-dark shadow-sm" id="data-expiracao" name="data_expiracao">
+                            <label for="horario-expiracao" class="form-label text-black fw-medium">Horário de expiração:</label>
+                            <input type="time" class="form-control border-1 border-dark shadow-sm" id="horario-expiracao" name="horario_expiracao" required>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="form-frida" class="form-label text-black fw-medium">Form. FRIDA:</label>
-                            <input type="text" class="form-control border-1 border-dark shadow-sm" id="form-frida" name="form_frida" placeholder="Form. FRIDA">
+                            <select class="form-control border-1 border-dark shadow-sm" id="form-frida" name="form_frida" required>
+                                <option value="" selected disabled>Selecione o nível Frida</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
                         </div>
                         <div class="col-md-6">
                             <label for="status" class="form-label text-black fw-medium">Status:</label>
-                            <input type="text" class="form-control border-1 border-dark shadow-sm" id="status" name="status" placeholder="Status">
+                            <select class="form-control border-1 border-dark shadow-sm" id="status" name="status" required>
+                                <option value="" selected disabled>Selecione o status</option>
+                                <option value="Ativa">Ativa</option>
+                                <option value="Inativa">Inativa</option>
+                            </select>
                         </div>
                     </div>
+                    
+                    </div>
                     <div class="buttons mb-3 d-flex justify-content-center col-12 p-5">
-                        <button type="submit" class="btn btn-warning border-1 border-dark shadow-sm fw-bold col-lg-4 col-md-5 col-sm-6 me-md-4 me-sm-3">ENTRAR</button>
-                        <button type="reset" class="btn border-1 border-dark shadow-sm fw-bold col-lg-4 col-md-5 col-sm-6">CANCELAR</button>
+                        <button type="submit" class="btn btn-warning border-1 border-dark shadow-sm fw-bold col-lg-4 col-md-5 col-sm-6 me-md-4 me-sm-3">ENVIAR</button>
+                        <a href="{% url 'navigation_menu' %}" class="btn border-1 border-dark shadow-sm fw-bold col-lg-4 col-md-5 col-sm-6">CANCELAR</a>
                     </div>
                 </form>
             </div>
