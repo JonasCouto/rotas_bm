@@ -139,3 +139,6 @@ MESSAGE_TAGS = {
     constants.INFO: 'alert-info',
     constants.WARNING: 'alert-warning',
 }
+
+LOGIN_URL = '/login/'  # ou qualquer URL de login que você tenha configurado
+

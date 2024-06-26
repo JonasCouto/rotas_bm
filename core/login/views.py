@@ -1,24 +1,3 @@
-from django.shortcuts import render
-
-# Create your views here.
-
-from django.shortcuts import render
-
-# def login(request):
-#     return render(request, "login.html")
-
-from django.shortcuts import render
-
-# Create your views here.
-
-
-# def index(request):
-#     return render(request, "index.html")
-
-
-# def login(request):
-#     return render(request, "login.html")
-
 
 # core/views.py
 from django.shortcuts import render, redirect
@@ -29,6 +8,14 @@ from .forms import UserRegistrationForm
 from django.http import JsonResponse
 from .utils import valida_cpf
 import requests
+from django.contrib.auth.decorators import login_required
+
+from django.contrib.auth import logout
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')  # redireciona para a página de login após o logout
 
 #Jonas - Metodo do Header
 def index(request):
@@ -61,23 +48,37 @@ def login_view(request):
             messages.error(request, "Nome de usuário ou senha inválidos.")
     return render(request, "login.html")
 
+
 #Cleiton- Metodo do Painel de Navegação
+@login_required(login_url='/login/')
 def navigation_menu(request):
     return render(request, "navigation_menu.html")
 
+# #Jonas
+# def logout_view(request):
+#     logout(request)
+#     return redirect('login')  # redireciona para a página de login após o logout
+
 #Lucas - Metodo do mapas
+@login_required(login_url='/login/')
 def map_direction(request):
     return render(request, "map_direction.html")
 
+
 #Lucas - Metodo de Cadastrar Pessoa
+@login_required(login_url='/login/')
 def register_person(request):
     return render(request, "register_person.html")
 
+
 #Jonathn - Metodo de Registrar Visita
+@login_required(login_url='/login/')
 def register_visit(request):
     return render(request, "register_visit.html")
 
 
+#Raul
+@login_required(login_url='/login/')
 def register_protective_measure(request):
     if request.method == 'GET':
         return render(request, "register_protective_measure.html")
@@ -110,7 +111,8 @@ def register_protective_measure(request):
 # numero_processo, numero_documento, nome_vitima, nome_agressor, 
 # orgao_expedidor, tipo, data_registro, 
 # hora_registro, fato, inicio, data-expiracao, form-frida, status
-
+#raul
+@login_required(login_url='/login/')
 def validar_cpf(request):
     if request.method == 'POST':
         cpf_digitado = request.POST.get('cpf', '')
@@ -122,6 +124,8 @@ def validar_cpf(request):
     # Lida com requisições GET, se necessário
     return render(request, 'seu_template.html')
 
+#Raul
+@login_required(login_url='/login/')
 def list_protective_measures(request):
     url = 'https://api-eproc-senac.vercel.app/protective-measures'
     
@@ -136,7 +140,3 @@ def list_protective_measures(request):
     
     # Renderizando o template com os dados recebidos da API
     return render(request, 'list_protective_measures.html', {'medidas_protetivas': medidas_protetivas})
-
-
-
-

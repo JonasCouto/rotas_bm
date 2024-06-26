@@ -30,4 +30,8 @@ urlpatterns = [
     path('map_direction/', views.map_direction, name='map_direction'), # Maps
     path('register_protective_measure/', views.register_protective_measure, name='register_protective_measure'),
     path('list_protective_measures/', views.list_protective_measures, name='listar_medidas_protetivas'),
+
+
+
+    #path('logout/', views.logout_view, name='logout'),
     ]
