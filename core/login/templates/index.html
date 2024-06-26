@@ -1,11 +1,11 @@
-<!-- {% load static %} -->
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cadastro</title>
+    <title>Document</title>
 
     <!-- LINK DO ARQUIVO BOOTSTRAP.CSS -->
     <link
@@ -30,26 +30,10 @@
       integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMgE8AMbr6ZivZp+AzBuJg7STl5ow5pXkk+1PiD"
       crossorigin="anonymous"
     />
-
-    <style>
-      .bg-image {
-          background-image: url('{% static "img/BRIGADA_imgagem.png" %}');
-          background-size: cover;
-          background-position: center;
-          height: 100vh;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-      }
-      .card {
-            width: 100%;
-            max-width: 500px;
-            background-color: rgba(255, 255, 255, 0.7); /* Fundo branco com 90% de opacidade */
-        }
-  </style>
   </head>
 
   <body>
+    <div>
       <header>
         <div class="logo-e-titulo">
           <div class="logo">
@@ -60,81 +44,43 @@
           </div>
         </div>
       </header>
-      <!-- {% block content %} -->
-      <div class="container bg-image">
-        <div class="container d-flex justify-content-center align-items-center min-vh-100">
-          <div class="card shadow-lg p-4" style="width: 100%; max-width: 500px">
-            <h2 class="text-center mb-4">Cadastro</h2>
-            {% if messages %}
-            <div class="messages mb-3">
-              {% for message in messages %}
-              <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-              {% endfor %}
-            </div>
-            {% endif %}
-            <form method="POST" class="needs-validation" novalidate autocomplete="off">
-              {% csrf_token %}
-          
-              <div class="mb-3 text-center">
-                  <label for="id_username" class="form-label">ID Funcional</label>
-                  <br>
-                  {{ form.username }}
-                  {% if form.username.errors %}
-                      <div class="invalid-feedback">
-                          {% for error in form.username.errors %}
-                              {{ error }}
-                          {% endfor %}
-                      </div>
-                  {% endif %}
-              </div>
-          
-              <div class="mb-3 text-center">
-                  <label for="id_password" class="form-label">Senha</label>
-                  <br>
-                  {{ form.password }}
-                  {% if form.password.errors %}
-                      <div class="invalid-feedback">
-                          {% for error in form.password.errors %}
-                              {{ error }}
-                          {% endfor %}
-                      </div>
-                  {% endif %}
-              </div>
-          
-              <div class="mb-3 text-center">
-                  <label for="id_confirm_password" class="form-label">Confirmar Senha</label>
-                  <br>
-                  {{ form.confirm_password }}
-                  {% if form.confirm_password.errors %}
-                      <div class="invalid-feedback">
-                          {% for error in form.confirm_password.errors %}
-                              {{ error }}
-                          {% endfor %}
-                      </div>
-                  {% endif %}
-              </div>
-          
-              <div class="form-check mb-3 text-center">
-                  {{ form.remember }}
-                  <label class="form-check-label" for="id_remember">Lembrar-me</label>
-              </div>
-          
-              <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
+      {% block content %}
+
+      <div
+        class="container d-flex justify-content-center align-items-center min-vh-100"
+      >
+        <div class="card shadow-lg p-4" style="width: 100%; max-width: 500px">
+          <h2 class="text-center mb-4">Cadastro</h2>
+          {% if messages %}
+          <div class="messages mb-3">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+          </div>
+          {% endif %}
+          <form
+            method="POST"
+            class="needs-validation"
+            novalidate=""
+            autocomplete="off"
+          >
+            {% csrf_token %} {{ form.as_p }}
+            <button type="submit" class="btn btn-primary w-100">
+              Cadastrar
+            </button>
           </form>
-          
-          
-            
-            <div class="text-center mt-3">
-              Já tem uma conta?
-              <a href="{% url 'login' %}" class="text-decoration-none"
-                >Faça o login</a
-              >
-            </div>
+          <div class="text-center mt-3">
+            Já tem uma conta?
+            <a href="{% url 'login' %}" class="text-decoration-none"
+              >Faça o login</a
+            >
           </div>
         </div>
-      </div>  
-      <!-- {% endblock %} -->
-   
+      </div>
+
+      {% endblock %}
+    </div>
+
     <!-- LINK DO ARQUIVO BOOTSTRAP.JS -->
     <script src="./bootstrap.min.js"></script>
   </body>
