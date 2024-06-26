@@ -27,7 +27,7 @@ SECRET_KEY = "django-insecure-4jr1o54y=!c@xnxm4#l4v+#-ul%*uz)7)u5oo+qt&q6yr$5pcz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["vercel.app", "127.0.0.1"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -51,7 +51,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = "core.urls"
@@ -139,12 +138,3 @@ MESSAGE_TAGS = {
     constants.INFO: "alert-info",
     constants.WARNING: "alert-warning",
 }
-
-# Deploy
-
-if os.environ.get("VERCEL"):
-    STATIC_ROOT = os.path.join(BASE_DIR, "static")
-
-    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
-# Deploy
