@@ -1,6 +1,5 @@
-{% extends 'index.html' %}
 {% load static %}
-{% block content %}
+
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
@@ -10,9 +9,28 @@
     <title>Menu Principal</title>
     <link rel="stylesheet" type="text/css" href="{% static 'assets/bootstrap.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'assets/navigation_menu.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/register_protective_measure.css' %}" />
   </head>
 
   <body class="background_main_menu">
+    <header class="d-flex justify-content-lg-around h-auto">
+      <div class="h-75 w-100 d-flex justify-content-center justify-content-md-center justify-content-sm-center align-items-center flex-md-wrap flex-sm-wrap flex-wrap flex-lg-nowrap text-md-center text-center text-lg-start text-sm-center ps-md-5 ps-sm-5">
+        <div style="width: 8%; height: 80%" class="col-md-12 col-sm-12 col-12">
+          <img class="h-100 w-100" src="{% static 'img/logo-brigada-militar.png' %}" alt="Logo Brigada Militar" />
+        </div>
+        <div class="titulo-brigada-militar col-md-12 h-50 d-flex justify-content-center flex-column col-sm-12 col-12 p-lg-3">
+          <span>BRIGADA MILITAR</span>
+        </div>
+      </div>
+      <div class="logout" style="width: 30%">
+        <a style="cursor:pointer;text-decoration:none " href="{% url 'login' %}">
+          <span class="input-group-text bg-transparent border-0 d-flex flex-column" style="background-color: #f5f5f4df; border: none;">
+            <img src="{% static 'img/logout-icon.png' %}" alt="Deslogar" style="width: 40px; height:35px;" />
+            <span class="text-light fw-bold">Logout</span>
+          </span>
+        </a>
+      </div>
+    </header>
     <div class="main_menu">
       <ul class="main_menu_ul">
         <li class="main_menu_li">
@@ -73,4 +91,3 @@
     <script src="{% static 'assets/bootstrap.js' %}"></script>
   </body>
 </html>
-{% endblock %}
