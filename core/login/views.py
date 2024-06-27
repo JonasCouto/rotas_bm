@@ -9,6 +9,7 @@ import requests
 from django.views.decorators.csrf import csrf_exempt
 from .models import Visita
 from queue import PriorityQueue
+from collections import defaultdict
 
 
 
@@ -73,7 +74,7 @@ def recalcular_prioridades(request):
     visitas_prioritarias = sorted(
         [
             visita for visita in visitas
-            if visita['mp']['primeiraVisita'] and visita['mp']['nivelFrida'] >= 5 and visita['mp']['status'] == 'Ativa'
+            if visita['mp']['primeiraVisita'] and visita['mp']['nivelFrida'] >= 2 and visita['mp']['status'] == 'Ativa'
         ],
         key=lambda v: (
             datetime.fromisoformat(v['mp']['criadoEm'].replace('Z', '')),
@@ -160,6 +161,15 @@ def formatar_data_hora(data_iso):
     
     return data_formatada
 
+def formatar_data(data_iso):
+    # Converter a string ISO 8601 para um objeto datetime
+    data = datetime.fromisoformat(data_iso.replace('Z', '+00:00'))
+    
+    # Formatar a data no formato amigável
+    data_formatada = data.strftime('%d/%m/%Y')
+    
+    return data_formatada
+
 def formatar_hora(hora_iso):
     # Converter a string ISO 8601 para um objeto datetime
     hora = datetime.fromisoformat(hora_iso.replace('Z', '+00:00'))
@@ -170,38 +180,62 @@ def formatar_hora(hora_iso):
     return hora_formatada
 
 def lista_visitas(request):
-    if request.method == 'POST':
-        # Recebendo os dados do formulário
-        numero_processo = request.POST.get('numero_processo')
-        id_policial = request.POST.get('id_policial')
-        data_expiracao = request.POST.get('data_expiracao')
+    visitas_info = []
+    num_processo = request.POST.get('numProcesso') if request.method == 'POST' else None
 
-        # Validar os dados (por exemplo, verificar se todos foram preenchidos)
-        if not numero_processo or not id_policial or not data_expiracao:
-            return JsonResponse({'error': 'Todos os campos são obrigatórios.'}, status=400)
+    try:
+        response = requests.get('https://api-eproc-senac.vercel.app/protective-measures')
+        data = response.json()
 
-        # Formatar os dados conforme necessário para a API
-        data = {
-            'mpId': int(numero_processo),  # Assumindo que 'numero_processo' é o 'mpId'
-            'policialId': int(id_policial),  # Convertendo para inteiro
-            'dataExpiracao': data_expiracao,  # Assumindo que 'data_expiracao' está no formato YYYY-MM-DD
-        }
+        for item in data:
+            mp_id = item.get('id')
+            visitas = item.get('visitas', [])
+            processo_numero = item.get('numProcesso')
 
-        # Enviar os dados para a API do orquestrador de fila das visitas
-        try:
-            response = requests.post('https://api-eproc-senac.vercel.app/visits', json=data)
-            if response.status_code == 201:
-                # Sucesso: recalcular a lista de visitas prioritárias
-                return recalcular_prioridades(request)
-            else:
-                # Retornar mensagem de erro da API
-                return JsonResponse(response.json(), status=response.status_code)
-        except requests.exceptions.RequestException as e:
-            # Tratar erros de requisição (por exemplo, conexão falhou)
-            return JsonResponse({'error': str(e)}, status=500)
+            for visita in visitas:
+                visita_info = {
+                    'mp_id': mp_id,
+                    'visita_id': visita.get('id'),
+                    'data': formatar_data(visita.get('data')),
+                    'horaInicio': formatar_hora(visita.get('horaInicio')),
+                    'horaFim': formatar_hora(visita.get('horaFim')),
+                    'status': visita.get('status'),
+                    'presente': visita.get('presente'),
+                    'numProcesso': processo_numero,
+                }
 
+                if num_processo:
+                    if str(processo_numero) == num_processo:
+                        visitas_info.append(visita_info)
+                else:
+                    visitas_info.append(visita_info)
+
+        return render(request, 'lista_visitas.html', {'visitas': visitas_info, 'numProcesso': num_processo})
+
+    except KeyError as e:
+        return JsonResponse({'error': f'KeyError: {e}'}, status=400)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+
+def get_protective_measures(request):
+    url = 'https://api-eproc-senac.vercel.app/protective-measures'
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        protective_measures = response.json()
+        
+        # Contar as visitas por medida protetiva (mpId)
+        visits_count = defaultdict(int)
+        for measure in protective_measures:
+            mp_id = measure['id']
+            visits_count[mp_id] = len(measure['visitas'])
+
+        visits_count_dict = dict(visits_count)
+        
+        return render(request, 'visits_count.html', {'visits_count': visits_count_dict})
     else:
-        return recalcular_prioridades(request)
+        return render(request, 'error.html', {'error_message': 'Falha ao obter dados da API de medidas protetivas'})
 
 def register_protective_measure(request):
     if request.method == 'GET':

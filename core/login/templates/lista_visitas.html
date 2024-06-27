@@ -67,32 +67,36 @@
 </nav>
     <div class="container">
         <h1>Lista de Visitas</h1>
+        <form method="post">
+            {% csrf_token %}
+            <label for="numProcesso">Número do Processo:</label>
+            <input type="text" id="numProcesso" name="numProcesso" required>
+            <button type="submit" class="Btnbuscar">Buscar</button>
+        </form>
         {% if visitas %}
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Número do Processo</th>
-                        <th>Nome da Vítima</th>
-                        <th>Nome do Policial</th>
-                        <th>Data da Visita</th>
+                        <th>ID da Medida Protetiva</th>
+                        <th>ID da Visita</th>
+                        <th>Data</th>
                         <th>Hora de Início</th>
                         <th>Hora de Fim</th>
                         <th>Status</th>
+                        <th>Presente</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for visita in visitas %}
-                    <tr>
-                        <td>{{ visita.id }}</td>
-                        <td>{{ visita.mp.numProcesso }}</td>
-                        <td>{{ visita.mp.vitima.nome }}</td>
-                        <td>{{ visita.policial.nome }}</td>
-                        <td>{{ visita.dataFormatada }}</td>
-                        <td>{{ visita.horaInicioFormatada }}</td>
-                        <td>{{ visita.horaFimFormatada }}</td>
-                        <td>{{ visita.status }}</td>
-                    </tr>
+                        <tr>
+                            <td>{{ visita.mp_id }}</td>
+                            <td>{{ visita.visita_id }}</td>
+                            <td>{{ visita.data }}</td>
+                            <td>{{ visita.horaInicio }}</td>
+                            <td>{{ visita.horaFim }}</td>
+                            <td>{{ visita.status }}</td>
+                            <td>{{ visita.presente }}</td>
+                        </tr>
                     {% endfor %}
                 </tbody>
             </table>
@@ -101,9 +105,10 @@
         {% endif %}
     </div>
     <div class="buttons mb-3 d-flex justify-content-center col-12 p-5">
-        <!-- <button type="submit" class="btn btn-warning border-1 border-dark shadow-sm fw-bold col-lg-4 col-md-5 col-sm-6 me-md-4 me-sm-3">ENVIAR</button>
-        <a href="{% url 'navigation_menu' %}" class="btn border-1 border-dark shadow-sm fw-bold col-lg-4 col-md-5 col-sm-6">CANCELAR</a> -->
-        <a class="list_visit" href="{% url 'register_visit' %}">retonar</a>
+        <a class="list_visit" href="{% url 'lista_visitas' %}">Limpar Filtro</a>
           </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>

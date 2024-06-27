@@ -45,6 +45,17 @@ nav > div > div > ul > li > a.link-atual {
     margin-left: 20px;
     padding: 10px;
   }
-  .list_visit a{
-    background-color: aqua;
+  .Btnbuscar {
+    background-color: #A69213;
+    color: #000;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: solid 1px #000000;
+    border-radius: 8px;
+    margin-left: 20px;
+    padding: 10px;
+  }
+  .table-striped{
+    border: solid 2px red;
   }
