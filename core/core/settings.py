@@ -79,8 +79,12 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "rotas_bm_db",
+        "USER": "admin",
+        "PASSWORD": "4WA8w87wsqc7EEaqIKVGJSkEhcQdUlSm",
+        "HOST": "dpg-cpvhfopu0jms73asu06g-a.oregon-postgres.render.com",
+        "PORT": "5432",
     }
 }
 
