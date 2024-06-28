@@ -24,7 +24,4 @@ class UserRegistrationForm(forms.ModelForm):
         if password != confirm_password:
             raise forms.ValidationError(
                 "As senhas não coincidem."
-            )  # Passwords do not match
-
-
-
+            )  # Passwords do not match        

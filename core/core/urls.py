@@ -15,8 +15,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path , include
 from login import views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,5 +30,5 @@ urlpatterns = [
     path('map_direction/', views.map_direction, name='map_direction'), # Maps
     path('register_protective_measure/', views.register_protective_measure, name='register_protective_measure'),  # Registrar medida protetiva
     path('list_protective_measures/', views.list_protective_measures, name='listar_medidas_protetivas'),  # Listar medidas protetivas
-    path('login/', include('login.urls')),  # Incluir as configurações de URL do aplicativo 'login'
+    path('login/', include('login.url')),  # Incluir as configurações de URL do aplicativo 'login'
 ]

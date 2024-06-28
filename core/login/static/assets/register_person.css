@@ -121,17 +121,24 @@ input[type="number"] {
 @media (max-width: 991px) {
   header {
     display: flex;
+  
+    
+  }
+
+  header > :nth-child(1){
+    text-align: end;
+  }
+  header > :nth-child(2){
+    flex: 1;
   }
 
   .logo-e-titulo {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: end;
   }
 
-  .logout {
-    display: none;
-  }
+
 
   .btn-tema {
     display: block!important;
@@ -170,8 +177,7 @@ input[type="number"] {
   .container-main > div > div > form input::placeholder {
     opacity: 1 !important;
   }
-
-  #data-nascimento:focus{
-    
+  .form-check > label{
+    display: block!important;
   }
 }

@@ -30,12 +30,9 @@ from django.http import JsonResponse
 from .utils import valida_cpf
 import requests
 
-from django.shortcuts import render
 
 
 
-import requests
-from django.http import JsonResponse
 
 def buscar_cidades(request):
     termo = request.GET.get('termo', '')
@@ -88,8 +85,91 @@ def map_direction(request):
     return render(request, "map_direction.html")
 
 #Lucas - Metodo de Cadastrar Pessoa
+# No arquivo views.py do seu app Django
+
 def register_person(request):
-    return render(request, "register_person.html")
+    if request.method == 'POST':
+        # Extrair dados do formulário
+        nome = request.POST.get('nome')
+        nacionalidade = request.POST.get('nacionalidade-select')
+        estado_civil = request.POST.get('estado-civil-select')
+        genero = request.POST.get('genero-select')
+        cpf = request.POST.get('cpf')
+        rg = request.POST.get('rg')
+        filiacao_paterna = request.POST.get('filiacao-paterna')
+        filiacao_materna = request.POST.get('filiacao-materna')
+        data_nascimento = request.POST.get('data-nascimento')
+        naturalidade = request.POST.get('naturalidade')
+        instrucao = request.POST.get('instrucao')
+        profissao = request.POST.get('profissao')
+        local_trabalho = request.POST.get('local-trabalho')
+        telefone = request.POST.get('telefone')
+        email = request.POST.get('email')
+        role = request.POST.get('role')
+
+        # Extrair dados do endereço do formulário
+        logradouro = request.POST.get('logradouro')
+        numero = request.POST.get('numero')
+        complemento = request.POST.get('complemento')
+        bairro = request.POST.get('bairro')
+        cidade = request.POST.get('cidade')
+        estado = request.POST.get('estado')
+        cep = request.POST.get('cep')
+
+        campos = request.POST.items()
+
+        for campo, valor in campos:
+            if not valor.strip():
+                messages.error(request, "Espaços em Brancos")
+                return redirect('/register_person')
+
+        # Dados do endereço
+        endereco_data = {
+            "logradouro": logradouro,
+            "numero": numero,
+            "complemento": complemento,
+            "bairro": bairro,
+            "cidade": cidade,
+            "estado": estado,
+            "cep": cep
+        }
+
+        # Criar endereço no sistema local (supondo que você tenha um modelo Endereco)
+        endereco = Endereco.objects.create(**endereco_data)
+
+        # Dados do formulário da pessoa
+        form_data = {
+            "enderecoId": endereco.id,
+            "nome": nome,
+            "nacionalidade": nacionalidade,
+            "estadoCivil": estado_civil,
+            "sexo": genero,
+            "cpf": str(cpf),
+            "rg": int(rg),
+            "telefone": telefone,
+            "email": email,
+            "profissao": profissao,
+            "filiacaoMaterna": filiacao_materna,
+            "filiacaoPaterna": filiacao_paterna,
+            "dataNascimento": data_nascimento,
+            "naturalidade": naturalidade,
+            "instrucao": instrucao,
+            "localTrabalho": local_trabalho
+        }
+
+        api = ('https://api-eproc-senac.vercel.app/aggressors' if role == "agressor" else 'https://api-eproc-senac.vercel.app/victims')
+
+        # Enviando os dados da pessoa para a API
+        response = requests.post(api, json=form_data)
+        
+        if response.status_code == 201:
+            messages.success(request, "Cadastrada com Sucesso.")
+            return redirect('/register_person')
+        else:
+            messages.error(request, "Falha Ao Cadastrar!")
+            return redirect('/register_person')
+
+    return render(request, 'register_person.html')
 
 #Jonathn - Metodo de Registrar Visita
 def register_visit(request):
