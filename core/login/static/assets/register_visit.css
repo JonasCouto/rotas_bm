@@ -1,0 +1,61 @@
+.checked{
+    top: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+}
+.form-check{
+    position: relative;
+    left: 20px;
+}
+.yes{
+    margin-right: 20px;
+}
+
+nav > div > div > ul > li > a.link-atual {
+    color: #cdb204 !important;
+    border-bottom: 2px solid;
+  }
+
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  /* Para navegadores baseados em Firefox */
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+  form{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  .list_visit{
+    background-color: #A69213;
+    color: #000;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: solid 1px #000000;
+    border-radius: 8px;
+    margin-left: 20px;
+    padding: 10px;
+  }
+  .Btnbuscar {
+    background-color: #A69213;
+    color: #000;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: solid 1px #000000;
+    border-radius: 8px;
+    margin-left: 20px;
+    padding: 10px;
+  }
+  .table-striped{
+    border: solid 2px red;
+  }

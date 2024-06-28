@@ -1,9 +1,5 @@
 /* CSS Navigation Menu - Cleiton Ferrugem */
 
-.background_main_menu {
-  background-color: #ffffff ;
-}
-
 .main_menu {
   height: calc(100vh - 210px);
   display: flex;
@@ -11,26 +7,64 @@
   align-items: center;
 }
 
-.main_menu > ul {
+.main_menu>ul {
   display: flex;
-  flex-wrap: wrap;
   flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
   align-items: center;
-  justify-content: center;
-  list-style-type: none;
+  align-content: space-between;
+  padding-left: 0;
+  margin-bottom: 0;
+
 }
 
-.main_menu > ul > li {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-left: 45px;
-  padding-right: 45px;
+.main_menu>ul>li:nth-child(1) {
+  padding-left: 20px;
+  padding-right: 20px;
+  display: block;
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
+  align-self: auto;
+  order: 0;
 }
 
-.main_menu > ul > li > a:hover {
-  transition: 250ms ease-in-out;
-  filter: drop-shadow(0px 0px 1px rgba(189, 182, 182, 1));
+.main_menu>ul>li:nth-child(2) {
+  padding-left: 20px;
+  padding-right: 20px;
+  display: block;
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
+  align-self: auto;
+  order: 0;
+}
+
+.main_menu>ul>li:nth-child(3) {
+  padding-left: 20px;
+  padding-right: 20px;
+  display: block;
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
+  align-self: auto;
+  order: 0;
+}
+
+.main_menu>ul>li:nth-child(4) {
+  padding-left: 20px;
+  padding-right: 20px;
+  display: block;
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
+  align-self: auto;
+  order: 0;
+}
+
+.main_menu>ul>li>a:hover {
+  filter: drop-shadow(0.7px 0.7px 0.7px rgb(0 0 0 / 0.4));
 }
 
 .mobile-icon,
@@ -40,78 +74,85 @@
 
 @media (max-width: 991px) {
   .main_menu {
-    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
+}
 
-  .main_menu > ul {
+.main_menu>ul {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     list-style-type: none;
-    padding-left: 0px ;
+    padding-left: 0px;
     margin-left: 0;
-  }
+}
 
-  .main_menu > ul > li {
+.main_menu>ul>li {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
     padding-left: 0;
     padding-right: 0;
-    padding-top: 5px;
-  }
+}
 
-  .main_menu > ul > li > a {
+.main_menu>ul>li>a {
     display: flex;
     align-items: center;
     height: 75px;
     width: 350px;
     border: #555347 solid;
     border-radius: 100px;
-  }
-  .main_menu > ul > li > a > {
+}
+
+.main_menu>ul>li>a> {
     display: flex;
     align-items: center;
-  }
-  .main_menu > ul > li > a > i {
+}
+
+.main_menu>ul>li>a>i {
     display: flex;
-  }
-  .main_menu > ul > li > a > i > figure {
+}
+
+.main_menu>ul>li>a>i>figure {
     display: contents;
-  }
+}
 
-  .main_menu > ul > li > a > figure {
+.main_menu>ul>li>a>figure {
     display: flex;
-  }
+}
 
-  .main_menu > ul > li > a > figure > img {
+.main_menu>ul>li>a>figure>img {
     align-items: center;
-  }
+}
 
-  .desktop-img {
+.desktop-img {
     display: none;
-  }
+}
 
-  .mobile-icon,
-  .mobile-text {
+.mobile-icon,
+.mobile-text {
     display: inline-block;
-  }
+}
 
-  .mobile-icon {
+.mobile-icon {
     margin-left: 20px;
-  }
 
-  .mobile-text {
+}
+
+.mobile-text {
     color: #555347;
     font-weight: 600;
     margin-left: 10px;
-  }
-  .main_menu_a {
+}
+
+.main_menu_a {
     text-decoration: none;
-  }
+}
+
 }
 
 /* CSS Navigation Menu - Cleiton Ferrugem */
