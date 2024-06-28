@@ -91,13 +91,15 @@ def register_person(request):
         role = request.POST.get('role')
 
         # Extrair dados do endereço do formulário
-        logradouro = request.POST.get('logradouro')
-        numero = request.POST.get('numero')
+        logradouro = request.POST.get('residencia')
+        numero = request.POST.get('numero-residencia')
         complemento = request.POST.get('complemento')
-        bairro = request.POST.get('bairro')
+        # bairro = request.POST.get('bairro')
         cidade = request.POST.get('cidade')
         estado = request.POST.get('estado')
         cep = request.POST.get('cep')
+        latitude = request.POST.get('latitude')
+        longitude = request.POST.get('longitude')
 
         campos = request.POST.items()
 
@@ -105,24 +107,17 @@ def register_person(request):
             if not valor.strip():
                 messages.error(request, "Espaços em Brancos")
                 return redirect('/register_person')
-
-        # Dados do endereço
-        endereco_data = {
-            "logradouro": logradouro,
-            "numero": numero,
-            "complemento": complemento,
-            "bairro": bairro,
-            "cidade": cidade,
-            "estado": estado,
-            "cep": cep
-        }
-
-        # Criar endereço no sistema local (supondo que você tenha um modelo Endereco)
-        endereco = Endereco.objects.create(**endereco_data)
-
+            
         # Dados do formulário da pessoa
         form_data = {
-            "enderecoId": endereco.id,
+            "estado": estado,
+            "cidade": cidade,
+            "cep": cep,
+            "rua": logradouro,
+            "numero": int(numero),
+            "complemento": complemento,
+            "latitude": float(latitude),
+            "longitude":float(longitude),
             "nome": nome,
             "nacionalidade": nacionalidade,
             "estadoCivil": estado_civil,

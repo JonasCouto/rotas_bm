@@ -9,4 +9,6 @@ urlpatterns = [
     path("", views.index, name="register"),
     path('', views.login, name='login'),  # Certifique-se que 'login_view' é a função correta
     path('/navigation_menu', views.navigation_menu, name='navigation_menu'),
+    path('buscar_cidades/', views.buscar_cidades, name='buscar_cidades')
+    
 ]
