@@ -1,40 +1,131 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-
-    <!-- LINK DO ARQUIVO BOOTSTRAP.CSS -->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'assets/index.css' %}"
-    />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.0.7/css/all.css"
-    />
-    <link rel="stylesheet" href="./bootstrap.min.css" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>registrar visitas</title>
+    <link rel="icon" href="{% static 'img/logo-brigada-militar.png' %}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/register_visit.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/index.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
+    <link rel="stylesheet" href="{% static 'assets/bootstrap.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-      rel="stylesheet"
-      integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMgE8AMbr6ZivZp+AzBuJg7STl5ow5pXkk+1PiD"
-      crossorigin="anonymous"
-    />
-  </head>
-
-  <body>
-    
-    <!-- LINK DO ARQUIVO BOOTSTRAP.JS -->
-    <script src="./bootstrap.min.js"></script>
-  </body>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMgE8AMbr6ZivZp+AzBuJg7STl5ow5pXkk+1PiD" crossorigin="anonymous">
+</head>
+<body>
+<header class="d-flex justify-content-lg-around h-auto">
+    <div class="h-75 w-100 d-flex justify-content-center justify-content-md-center justify-content-sm-center align-items-center flex-md-wrap flex-sm-wrap flex-wrap flex-lg-nowrap text-md-center text-center text-lg-start text-sm-center ps-md-5 ps-sm-5">
+        <div style="width: 8%; height: 80%" class="col-md-12 col-sm-12 col-12">
+            <img class="h-100 w-100" src="{% static 'img/logo-brigada-militar.png' %}" alt="Logo Brigada Militar">
+        </div>
+        <div class="titulo-brigada-militar col-md-12 h-50 d-flex justify-content-center flex-column col-sm-12 col-12 p-lg-3">
+            <span>BRIGADA MILITAR</span>
+        </div>
+    </div>
+    <div class="buscar-servico" style="width: 30%">
+        <a style="cursor:pointer;text-decoration:none" href="{% url 'login' %}">
+            <span class="input-group-text bg-transparent border-0 d-flex flex-column" style="background-color: #f5f5f4df; border: none;">
+                <img src="{% static 'img/logout-icon.png' %}" alt="Buscar" style="width: 40px; height:35px;">
+                <span class="text-light fw-bold">Logout</span>
+            </span>
+        </a>
+    </div>
+</header>
+<nav class="navbar navbar-expand-lg w-100" style="background-color: #d9d9d9">
+    <div class="container-fluid">
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <img src="{% static 'img/bars-solid.svg' %}" alt="Menu" class="navbar-toggler-icon">
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav accordion justify-content-evenly w-100">
+                <li class="nav-item">
+                    <a class="nav-link"  href="{% url 'register_protective_measure' %}">CADASTRAR MEDIDA PROTETIVA</a>
+                </li>
+                <li class="nav-item" >
+                    <a class="nav-link link-atual" href="{% url 'register_visit' %}">REGISTRAR VISITA</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"  href="{% url 'register_person' %}">CADASTRAR PESSOA E DEFINIR ROTA</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'map_direction' %}">DEFINIR ROTA</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container container-main w-50">
+    <div class="row d-flex flex-column justify-content-cente pb-5">
+        <div class="col-1 w-100">
+            <h1 style="font-size: 20px; font-weight: 600; font-family: 'Inter'" class="pb-2 pt-5">REGISTRAR VISITA</h1>
+            <div class="d-flex">
+                <div class="w-75 rounded" style="border-top: 5px solid #dec208"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+          {% for msg in messages %}
+          <div class="alert alert-success" role="alert">
+              <h4 class="alert-heading">Sucesso!</h4>
+              {{msg}}
+          </div>
+          {% endfor %}
+          <form method="POST">
+              {% csrf_token %}
+              <div class="mb-3" style="width: 48%">
+                  <label for="numero-processo" class="form-label text-black fw-medium">Número do processo:</label>
+                  <input type="number" class="form-control border-1 border-dark shadow-sm" id="numero-processo" name="numero-processo" placeholder="Nº do processo" required>
+              </div>
+              <div class="mb-3" style="width: 48%">
+                  <label for="data-visita" class="form-label text-black fw-medium">Data Visita:</label>
+                  <input type="date" class="form-control border-1 border-dark shadow-sm" id="data-visita" name="data-visita" placeholder="Informe a Data da visita" required>
+              </div>
+              <div class="mb-3" style="width: 48%">
+                <label for="id-funcional" class="form-label text-black fw-medium">ID Funcional:</label>
+                <input type="number" class="form-control border-1 border-dark shadow-sm" id="id-funcional" name="id-funcional" placeholder="Nº do processo" required>
+            </div>
+              <div class="mb-3" style="width: 48%">
+                  <label for="hora-inicio" class="form-label text-black fw-medium">Hora Início:</label>
+                  <input type="time" class="form-control border-1 border-dark shadow-sm" id="hora-inicio" name="hora-inicio" placeholder="Informe a Hora de início" required>
+              </div>
+              <div class="mb-3" style="width: 48%">
+                  <label for="hora-final" class="form-label text-black fw-medium">Hora Final:</label>
+                  <input type="time" class="form-control border-1 border-dark shadow-sm" id="hora-final" name="hora-final" placeholder="Informe a Hora final" required>
+              </div>
+              <div class="mb-3" style="width: 48%">
+                  <label for="status" class="form-label text-dark fw-medium">Status da Visita:</label>
+                  <select class="form-control border-1 border-dark shadow-sm" id="status" name="status" required>
+                      <option value="" disabled selected>Selecione um status</option>
+                      <option value="AGENDADA">Agendada</option>
+                      <option value="CONCLUIDA">Concluída</option>
+                      <option value="CANCELADA">Cancelada</option>
+                      <option value="REAGENDADA">Reagendada</option>
+                  </select>
+              </div>
+              <div class="mb-3 checked" style="width: 100%">
+                  <label for="presente" class="form-label text-dark fw-medium">Presente:</label>
+                  <div class="form-check yes">
+                      <input class="form-check-input" type="radio" name="presente" id="presente1" value="true" required>
+                      <label class="form-check-label" for="presente1">Sim</label>
+                  </div>
+                  <div class="form-check no">
+                      <input class="form-check-input" type="radio" name="presente" id="presente2" value="false" required>
+                      <label class="form-check-label" for="presente2">Não</label>
+                  </div>
+              </div>
+              <div class="buttons mb-3 d-flex justify-content-center col-12 p-5">
+                <button type="submit" class="btn btn-warning border-1 border-dark shadow-sm fw-bold col-lg-4 col-md-5 col-sm-6 me-md-4 me-sm-3">ENVIAR</button>
+                <a href="{% url 'navigation_menu' %}" class="btn border-1 border-dark shadow-sm fw-bold col-lg-4 col-md-5 col-sm-6">CANCELAR</a>
+                <a class="list_visit" href="{% url 'lista_visitas' %}">Lista de visitas</a>
+            </div>
+          </form>
+      </div>
+  </div>
+</div>
+</body>
 </html>

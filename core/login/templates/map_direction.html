@@ -1,27 +1,513 @@
-{% extends 'index.html' %} {% load static %} {% block content %}
+{% load static %}
 <!DOCTYPE html>
-<html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mapa</title>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'assets/bootstrap.css' %}"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'assets/navigation_menu.css' %}"
-    />
-  </head>
+<html lang="pt-BR">
 
-  <body >
-    
-  </body>
+<head>
+  <meta charset="utf-8">
+  <title>Mapa com Rota</title>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCF5p1n9-KtJq0cnmkagCpIUAfo8uWSxxE&libraries=places,geometry"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <link rel="icon" href="{% static 'img/logo-brigada-militar.png' %}" type="image/x-icon">
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+    body {
+      margin: 0px;
+      padding: 0px;
+    }
+
+    header {
+      width: 100%;
+      padding: 1rem;
+      padding-left: 5%;
+      padding-right: 5%;
+      background-color: #555347;
+      align-items: center;
+      border-bottom: 5px solid #dec208;
+    }
+
+    .logo img {
+      height: 100%;
+      width: 100%;
+    }
+
+    .titulo-brigada-militar {
+      color: white;
+      font-size: 25px;
+      font-weight: 900;
+      font-family: "Inter";
+    }
+
+    .input-group .form-control:focus {
+      box-shadow: none;
+    }
+
+    .input-group .form-control {
+      border-right: 0;
+      border-top-right-radius: 50px;
+      border-bottom-right-radius: 50px;
+      text-align: center;
+      outline: none;
+    }
+
+    .logout .form-control::placeholder {
+      text-align: center;
+    }
+
+    nav {
+      padding: 0;
+    }
+
+    nav>div>div>ul>li>a {
+      color: #555353 !important;
+      font-size: 20px;
+      font-weight: 600 !important;
+      font-family: "Inter";
+    }
+
+    nav>div>div>ul>li>a.link-atual {
+      color: #cdb204 !important;
+      border-bottom: 2px solid;
+    }
+
+    #map {
+      height: 40rem;
+      width: 120rem;
+    }
+
+    .img_logo {
+      display: inline;
+    }
+
+    .btn {
+      margin-left: 10px !important;
+      color: #000 !important;
+
+    }
+
+    .sidenav {
+      height: 90%;
+      width: 0;
+      position: absolute;
+      z-index: 1;
+      left: 0;
+      background-color: #fff;
+      border: 3px solid #555347;
+      border-color: solid 5px #000;
+      overflow-x: hidden;
+      transition: 0.5s;
+    }
+
+    .sidenav a {
+      text-decoration: none;
+      color: #818181;
+      transition: 0.5s;
+    }
+
+    .sidenav a:hover {
+      color: #f1f1f1;
+    }
+
+    .sidenav .closebtn {
+      position: absolute;
+      right: 5px;
+      font-size: 40px;
+      padding: 0px;
+    }
+
+    .sidenav ul {
+      /* padding-top: 40px; */
+      list-style: none;
+    }
+
+    .sidenav ul::before {
+      content: attr(aria-label);
+      font-size: 120%;
+      font-weight: bold;
+      margin-left: -15px;
+    }
+
+    #main {
+      display: inline;
+      transition: margin-left .3s;
+      padding: 16px;
+      display: flex;
+    }
+    @media (max-width: 991px) {
+  header {
+    display: flex;
+  }
+
+  .logo-e-titulo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .logout {
+    display: none;
+  }
+
+  .btn-tema {
+    display: block!important;
+  }
+
+  .navbar-toggler {
+    position: relative;
+    top: -35px;
+    right: -15px;
+  }
+
+  nav {
+    background-color: transparent !important;
+    padding: 0;
+  }
+
+  nav > div {
+    margin-top: -3rem;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  nav > div > div > ul > li {
+    background-color: #f5f5f4df;
+    padding: 1.2rem;
+  }
+
+  .container-main > div > div > form input::placeholder {
+    opacity: 1 !important;
+  }
+}
+    @media screen and (max-height: 450px) {
+      .sidenav {
+        padding-top: 15px;
+      }
+
+      .sidenav a {
+        font-size: 18px;
+      }
+    }
+
+    .corpo_menu {
+      padding-top: 30px;
+    }
+
+    .line_header {
+      width: 100%;
+      height: 5px;
+      background-color: #DEC208;
+      bottom: 10;
+      left: 0;
+    }
+
+    .subheader {
+      background-color: #D9D9D9 !important;
+      color: #555353;
+      height: 43px;
+      text-align: center;
+    }
+
+    .subheader a {
+      padding: 0px 40px 0px 40px;
+      text-decoration: none;
+      color: #555353;
+      font-size: x-large;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="d-flex justify-content-lg-around h-auto">
+    <div
+      class="h-75 w-100 d-flex justify-content-center justify-content-md-center justify-content-sm-center align-items-center flex-md-wrap flex-sm-wrap flex-wrap flex-lg-nowrap text-md-center text-center text-lg-start text-sm-center ps-md-5 ps-sm-5"
+    >
+      <div style="width: 8%; height: 80%" class="col-md-12 col-sm-12 col-12">
+        <img
+          class="h-100 w-100"
+          src="{% static 'img/logo-brigada-militar.png' %}"
+          alt="Logo Brigada Militar"
+        />
+      </div>
+      <div
+        class="titulo-brigada-militar col-md-12 h-50 d-flex justify-content-center flex-column col-sm-12 col-12 p-lg-3"
+      >
+        <span>BRIGADA MILITAR</span>
+      </div>
+    </div>
+    <div class="logout" style="width: 30%">
+       <a style = "cursor:pointer;text-decoration:none " href="">
+        <!-- Adicione onde deseja exibir o link de logout -->
+       
+          <span
+            
+            class="input-group-text bg-transparent border-0 d-flex flex-column "
+            style="background-color: #f5f5f4df; border: none;"
+            >
+            <img
+              src="{% static 'img/logout-icon.png' %}"
+              alt="Deslogar"
+              style="width: 40px; height:35px;">
+              <span class = "text-light fw-bold">
+                Logout
+              </span>
+          </span>
+        </a>
+    </div>
+  </header>
+  <nav class="navbar navbar-expand-lg w-100" style="background-color: #d9d9d9">
+    <div class="container-fluid">
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <img src="{% static 'img/bars-solid.svg' %}" alt="Menu" class="navbar-toggler-icon" />
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav accordion justify-content-evenly w-100">
+          <li class="nav-item">
+            <a class="nav-link" target="_blank" href="{% url 'register_visit' %}">REGISTRAR VISITA</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link link-atual" href="{% url 'map_direction' %}">DEFINIR ROTA</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <div class="corpo_menu">
+      <h5>Destino
+        <span id="destinoo"> </span> 
+      </h5>
+      <!-- <p id="Endereco" style="margin-left: 16px;"> Rua Andrades Machado,25, Auxiliadora, Porto Alegre</p> -->
+      <ul aria-label="Vítima:">
+        <li id="nomeVitima"></li>
+        <li id="telVitima"></li>
+        <li id="rgVitima">Rg: </li>
+        <li id="cpfVitima">Cpf: </li>
+        <li id="riscoVitima">NivelFrida: </li>
+      </ul>
+
+      <ul aria-label="Agressor:">
+        <li id="nomeAgre"></li>
+        <li id="telAgre"></li>
+        <li id="rgAgre">Rg: </li>
+        <li id="cpfAgre">Cpf: </li>
+      </ul>
+      <a id="linktoMaps" onclick="carregarlink()" class="btn btn-warning">Ir ao Maps</a>
+    </div>
+  </div>
+  <main id="main">
+    <span id="botoaomenu" onclick="openNav()"><i class="material-icons"
+        style="padding: 10px 12 0px 12px;font-size:49px;color:#000;">menu</i></span>
+    <!-- <form id="routeForm" style="width: 70%;">
+                <div class="row">
+                    <button type="button" class="btn btn-primary mt-2 col-3" onclick="initMap()">Visualizar Mapa</button>
+                    <button type="button" class="btn btn-secondary mt-2 col-3" onclick="pegarLocalAtual()">Usar Posição Atual</button>
+                    <a id="link" href="https://www.google.com/maps/dir/-30.0351908,-51.2265935/-30.0361863,-51.2280838/Zaffari+Cavalhada+-+Avenida+da+Cavalhada+-+Cavalhada,+Porto+Alegre+-+RS/Avenida+Icara%C3%AD,+102+-+Cristal,+Porto+Alegre+-+RS/Rua+Moura+Azevedo,+606+-+S%C3%A3o+Geraldo,+Porto+Alegre+-+RS/@-30.0399855,-51.2311167,15.75z/data=!3m1!5s0x9519825a65e6ca53:0xe1d19c316c17a6e7!4m33!4m32!1m1!4e1!1m0!1m5!1m1!1s0x951983a9a0dbfb49:0xdfd15b13146cfd0!2m2!1d-51.2283683!2d-30.1086029!1m15!1m1!1s0x9519789ee52ac939:0xf0c7a35b5be1a0e3!2m2!1d-51.239141!2d-30.0808332!3m4!1m2!1d-51.2256303!2d-30.0350985!3s0x951979014ba661f7:0xda1e69530b697762!3m4!1m2!1d-51.2382723!2d-30.034103!3s0x951979175e885301:0x6fb37f8be113b37a!1m5!1m1!1s0x95197995a2f307d7:0xed399c71db9bb1ab!2m2!1d-51.2035494!2d-30.011474!3e0?entry=ttu" class="btn btn-secondary mt-2 col-3" onclick="pegarLocalAtual()">Ir ao Maps</a>
+                </div>
+                </form> -->
+    <div class="container-lg container-sm" id="map"> </div>
+  </main>
+
+
+  <script>
+    let i = 0
+    let alfabeto = ['B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'];
+    var prodestino = document.getElementById('destinoo').innerHTML = '<strong>' + alfabeto[i] + '</strong>';
+
+    function proxVitima() {
+      i += 1
+      var prodestino = document.getElementById('destinoo').innerHTML = alfabeto[i];
+      mostrarInfos()
+      initMap()
+    }
+
+
+    async function Ajax_dados() {
+      const informacoes = await fetch("https://api-eproc-senac.vercel.app/protective-measures",
+      );
+      if (!informacoes.ok) {
+        throw new Error(`Erro na solicitação: ${response.status}`);
+      } else {
+        //-30.033477574830027, -51.20732455786975
+        const jason = await informacoes.json();
+        vitimas = []
+        for (let index = 0; index < 5; index++) {
+          const objetoVitima = {
+            nome: jason[index].vitima.nome,
+            telefone: jason[index].vitima.telefone,
+            cpf: jason[index].vitima.cpf,
+            rg: jason[index].vitima.rg,
+            nivelFrida: jason[index].nivelFrida,
+            endereco: jason[index].vitima.endereco.latitude + "," + jason[index].vitima.endereco.longitude,
+            agressor: {
+              nome: jason[index].agressor.nome,
+              telefone: jason[index].agressor.telefone,
+              rg: jason[index].agressor.rg,
+              cpf: jason[index].agressor.cpf
+            }
+          }
+          vitimas.push(objetoVitima);
+        }
+        localStorage.setItem("vitimas", JSON.stringify(vitimas))
+        localStorage = vitimas;
+      }
+    }
+
+    Ajax_dados()
+
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "255px";
+      document.getElementById("mySidenav").style.display = "inline";
+
+      document.getElementById("main").style.marginLeft = "255px";
+      document.getElementById("botoaomenu").style.display = 'none'
+    }
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+      document.getElementById("mySidenav").style.display = "none";
+      document.getElementById("main").style.marginLeft = "0";
+      document.getElementById("botoaomenu").style.display = 'inline'
+      console.log(JSON.parse(localStorage.vitimas));
+
+    }
+    async function initMap() {
+      vitimas = JSON.parse(localStorage.vitimas)
+
+      origemInput = await pegarLocalAtual()
+      destinoInput = vitimas[vitimas.length - 1].endereco;
+
+      x = 0
+      while (x < vitimas.length - 1) {
+        if (vitimas[x].endereco === destinoInput) {
+          break; // Se chegou ao destino, interrompe o loop
+        } else if (x == 0) {
+          paradasStr = vitimas[0].endereco + ";";
+        } else {
+          paradasStr += vitimas[x].endereco + ";";
+        }
+        x++;
+      }
+      const [originLat, originLng] = origemInput.split(',').map(Number);
+      const [destinationLat, destinationLng] = destinoInput.split(',').map(Number);
+      var pontosMeio = paradasStr.split(';').map(wp => {
+        const [lat, lng] = wp.trim().split(',');
+        return {
+          location: new google.maps.LatLng(lat, lng),
+          stopover: true
+        };
+      });
+
+      const map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: (originLat + destinationLat) / 2, lng: (originLng + destinationLng) / 2 },
+        zoom: 20
+      });
+
+      const directionsService = new google.maps.DirectionsService();
+      const directionsRenderer = new google.maps.DirectionsRenderer();
+      directionsRenderer.setMap(map);
+      pontosMeio.pop()
+
+      const request = {
+        origin: new google.maps.LatLng(originLat, originLng),
+        destination: new google.maps.LatLng(destinationLat, destinationLng),
+        waypoints: pontosMeio,
+        travelMode: 'DRIVING',
+        optimizeWaypoints: true,
+      };
+
+      directionsService.route(request, function (result, status) {
+        if (status === 'OK') {
+          directionsRenderer.setDirections(result);
+        } else {
+          console.error('Directions request failed due to ' + status);
+          Swal.fire({
+            icon: "error",
+            title: "Erro.. ",
+            text: "Não foi Possivel fazer Rota com estas Cordenadas",
+          });
+        }
+      });
+    }
+
+
+    function pegarLocalAtual() {
+      return new Promise((resolve, reject) => {
+        if (navigator.geolocation) {
+          const options = {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0,
+          };
+          function success(pos) {
+            const crd = pos.coords;
+            //console.log(More or less ${crd.accuracy} meters.);
+            resolve(`${crd.latitude},${crd.longitude}`);
+          }
+          function error(err) {
+            Swal.fire({
+              icon: "error",
+              title: "Erro.. ",
+              text: "Localização Atual Não Encontrada",
+            });
+            console.warn(`ERROR(${err.code}): ${err.message}`);
+            reject(err);
+          }
+          navigator.geolocation.getCurrentPosition(success, error, options);
+        } else {
+          const error = new Error("Geolocalização não é suportada por este navegador.");
+          console.error(error);
+          reject(error);
+        }
+      });
+    }
+    function mostrarInfos() {
+      vitimaAtual = JSON.parse(localStorage.vitimas)
+      document.getElementById("nomeVitima").textContent = vitimaAtual[i].nome;
+      document.getElementById("telVitima").textContent = vitimaAtual[i].telefone;
+      document.getElementById("rgVitima").textContent = 'Rg: ' + vitimaAtual[i].rg;
+      document.getElementById("cpfVitima").textContent = 'Cpf: ' + vitimaAtual[i].cpf;
+      document.getElementById("riscoVitima").textContent = 'Nivel Frida: ' + vitimaAtual[i].nivelFrida;
+
+      document.getElementById("nomeAgre").textContent = vitimaAtual[i].agressor.nome;
+      document.getElementById("telAgre").textContent = vitimaAtual[i].agressor.telefone;
+      document.getElementById("rgAgre").textContent = 'Rg: ' + vitimaAtual[i].agressor.rg;
+      document.getElementById("cpfAgre").textContent = 'Cpf: ' + vitimaAtual[i].agressor.cpf;
+    }
+    async function carregarlink() {
+      vitimas = JSON.parse(localStorage.vitimas)
+      let origin = await pegarLocalAtual();
+      let destination = vitimas[vitimas.length - 1].endereco;
+      x = 0
+      while (x < vitimas.length - 1) {
+        if (vitimas[x].endereco === destinoInput) {
+          break; // Se chegou ao destino, interrompe o loop
+        } else if (x == 0) {
+          waypoints = vitimas[0].endereco + ";";
+        } else {
+          waypoints += vitimas[x].endereco + ";";
+        }
+        x++;
+      }
+      let url = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}`;
+
+      if (waypoints.length > 0) {
+        let waypointsStr = waypoints.split(';').map(wp => encodeURIComponent(wp)).join('|');
+        url += `&waypoints=${waypointsStr}`;
+      }
+      let link = document.getElementById('linktoMaps');
+      link.href = url;
+    }
+    carregarlink()
+    mostrarInfos()
+    initMap()
+  </script>
+</body>
+
 </html>
-{% endblock %}
-
-
