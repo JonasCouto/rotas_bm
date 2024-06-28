@@ -14,6 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>registrar visitas</title>
     <link rel="icon" href="{% static 'img/logo-brigada-militar.png' %}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/lista_visitas.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'assets/register_visit.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'assets/index.css' %}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
@@ -65,23 +66,23 @@
         </div>
     </div>
 </nav>
-    <div class="container">
+    <div class="container container-main">
         <h1>Lista de Visitas</h1>
         <form method="post">
             {% csrf_token %}
             <label for="numProcesso">Número do Processo:</label>
-            <input type="text" id="numProcesso" name="numProcesso" required>
-            <button type="submit" class="Btnbuscar">Buscar</button>
+            <input type="text" id="numProcesso" name="numProcesso" class="mb-3" required>
+            <button type="submit" class="Btnbuscar" class="mb-3">Buscar</button>
         </form>
         {% if visitas %}
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>ID da Medida Protetiva</th>
-                        <th>ID da Visita</th>
+                        <th>ID MP</th>
+                        <th>ID Visita</th>
                         <th>Data</th>
-                        <th>Hora de Início</th>
-                        <th>Hora de Fim</th>
+                        <th>Hora Início</th>
+                        <th>Hora Fim</th>
                         <th>Status</th>
                         <th>Presente</th>
                     </tr>
@@ -105,7 +106,7 @@
         {% endif %}
     </div>
     <div class="buttons mb-3 d-flex justify-content-center col-12 p-5">
-        <a class="list_visit" href="{% url 'lista_visitas' %}">Limpar Filtro</a>
+    <a href="{% url 'lista_visitas' %}" class="btn border-1 border-dark shadow-sm fw-bold col-lg-4 col-md-5 col-sm-6">Limpar Filtro</a>
           </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>

@@ -17,53 +17,98 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMgE8AMbr6ZivZp+AzBuJg7STl5ow5pXkk+1PiD" crossorigin="anonymous">
 </head>
 <body>
-<header class="d-flex justify-content-lg-around h-auto">
-    <div class="h-75 w-100 d-flex justify-content-center justify-content-md-center justify-content-sm-center align-items-center flex-md-wrap flex-sm-wrap flex-wrap flex-lg-nowrap text-md-center text-center text-lg-start text-sm-center ps-md-5 ps-sm-5">
-        <div style="width: 8%; height: 80%" class="col-md-12 col-sm-12 col-12">
-            <img class="h-100 w-100" src="{% static 'img/logo-brigada-militar.png' %}" alt="Logo Brigada Militar">
-        </div>
-        <div class="titulo-brigada-militar col-md-12 h-50 d-flex justify-content-center flex-column col-sm-12 col-12 p-lg-3">
+    <header class="d-flex justify-content-lg-around h-auto">
+        <div
+          class="h-75 w-100 d-flex justify-content-center justify-content-md-center justify-content-sm-center align-items-center flex-md-wrap flex-sm-wrap flex-wrap flex-lg-nowrap text-md-center text-center text-lg-start text-sm-center ps-md-5 ps-sm-5"
+        >
+          <div class="container-logo col-md-12 col-sm-12 col-12">
+            <img
+              
+              src="{% static 'img/logo-brigada-militar.png' %}"
+              alt="Logo Brigada Militar"
+            />
+          </div>
+          <div
+            class="titulo-brigada-militar col-md-12 h-50 d-flex justify-content-center flex-column col-sm-12 col-12 p-lg-3"
+          >
             <span>BRIGADA MILITAR</span>
+          </div>
         </div>
-    </div>
-    <div class="buscar-servico" style="width: 30%">
-        <a style="cursor:pointer;text-decoration:none" href="{% url 'login' %}">
-            <span class="input-group-text bg-transparent border-0 d-flex flex-column" style="background-color: #f5f5f4df; border: none;">
-                <img src="{% static 'img/logout-icon.png' %}" alt="Buscar" style="width: 40px; height:35px;">
-                <span class="text-light fw-bold">Logout</span>
-            </span>
-        </a>
-    </div>
-</header>
-<nav class="navbar navbar-expand-lg w-100" style="background-color: #d9d9d9">
-    <div class="container-fluid">
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <img src="{% static 'img/bars-solid.svg' %}" alt="Menu" class="navbar-toggler-icon">
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="logout-container">
+           <a  href="">
+              <span
+                class="input-group-text bg-transparent border-0 d-flex flex-column "
+                >
+                <img
+                  src="{% static 'img/logout-icon.png' %}"
+                  alt="Deslogar"
+                  class ="img-logo">
+                  <span class = "text-light fw-bold">
+                    Logout
+                  </span>
+              </span>
+            </a>
+        </div>
+      </header>
+      <nav
+        class="navbar navbar-expand-lg w-100"
+      >
+        <div class="container-fluid">
+          <button
+            class="navbar-toggler border-0"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <img
+              src="{% static 'img/bars-solid.svg' %}"
+              alt="Menu"
+              class="navbar-toggler-icon"
+            />
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav accordion justify-content-evenly w-100">
-                <li class="nav-item">
-                    <a class="nav-link"  href="{% url 'register_protective_measure' %}">CADASTRAR MEDIDA PROTETIVA</a>
-                </li>
-                <li class="nav-item" >
-                    <a class="nav-link link-atual" href="{% url 'register_visit' %}">REGISTRAR VISITA</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link"  href="{% url 'register_person' %}">CADASTRAR PESSOA E DEFINIR ROTA</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'map_direction' %}">DEFINIR ROTA</a>
-                </li>
-            </ul>
+              <li class="nav-item">
+                <a class="nav-link"  href="{% url 'register_protective_measure' %}">CADASTRAR MEDIDA PROTETIVA</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'register_visit' %}">REGISTRAR VISITA</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link link-atual" href="{% url 'register_person' %}"
+                  >CADASTRAR PESSOA E DEFINIR ROTA</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link"href="{% url 'map_direction' %}">DEFINIR ROTA</a>
+              </li>
+              <li class="nav-item logout-nav">
+                <a class="nav-link"href="#">
+                  <span
+                    class="input-group-text  bg-transparent border-0 d-flex flex-column "
+                    >
+                    <img
+                      src="{% static 'img/logout-dark.png' %}"
+                      alt="Deslogar"
+                      class ="logout-img-dark">
+                      <span class = "text-dark fw-bold">
+                        Logout
+                      </span>
+                  </span>
+                </a>
+              </li>
+          </div>
         </div>
-    </div>
-</nav>
-<div class="container container-main w-50">
+      </nav>
+<div class="container container-main w-75">
     <div class="row d-flex flex-column justify-content-cente pb-5">
         <div class="col-1 w-100">
-            <h1 style="font-size: 20px; font-weight: 600; font-family: 'Inter'" class="pb-2 pt-5">REGISTRAR VISITA</h1>
+            <h1 style="font-size: 20px; font-weight: 600; font-family: 'Inter';" class="pb-2 pt-5">REGISTRAR VISITA</h1>
             <div class="d-flex">
-                <div class="w-75 rounded" style="border-top: 5px solid #dec208"></div>
+                <div class="w-75 rounded" style="border-top: 5px solid #dec208;"></div>
             </div>
         </div>
     </div>
@@ -77,27 +122,27 @@
           {% endfor %}
           <form method="POST">
               {% csrf_token %}
-              <div class="mb-3" style="width: 48%">
+              <div class="mb-3">
                   <label for="numero-processo" class="form-label text-black fw-medium">Número do processo:</label>
                   <input type="number" class="form-control border-1 border-dark shadow-sm" id="numero-processo" name="numero-processo" placeholder="Nº do processo" required>
               </div>
-              <div class="mb-3" style="width: 48%">
+              <div class="mb-3">
                   <label for="data-visita" class="form-label text-black fw-medium">Data Visita:</label>
                   <input type="date" class="form-control border-1 border-dark shadow-sm" id="data-visita" name="data-visita" placeholder="Informe a Data da visita" required>
               </div>
-              <div class="mb-3" style="width: 48%">
+              <div class="mb-3">
                 <label for="id-funcional" class="form-label text-black fw-medium">ID Funcional:</label>
                 <input type="number" class="form-control border-1 border-dark shadow-sm" id="id-funcional" name="id-funcional" placeholder="Nº do processo" required>
             </div>
-              <div class="mb-3" style="width: 48%">
+              <div class="mb-3">
                   <label for="hora-inicio" class="form-label text-black fw-medium">Hora Início:</label>
                   <input type="time" class="form-control border-1 border-dark shadow-sm" id="hora-inicio" name="hora-inicio" placeholder="Informe a Hora de início" required>
               </div>
-              <div class="mb-3" style="width: 48%">
+              <div class="mb-3">
                   <label for="hora-final" class="form-label text-black fw-medium">Hora Final:</label>
                   <input type="time" class="form-control border-1 border-dark shadow-sm" id="hora-final" name="hora-final" placeholder="Informe a Hora final" required>
               </div>
-              <div class="mb-3" style="width: 48%">
+              <div class="mb-3">
                   <label for="status" class="form-label text-dark fw-medium">Status da Visita:</label>
                   <select class="form-control border-1 border-dark shadow-sm" id="status" name="status" required>
                       <option value="" disabled selected>Selecione um status</option>
@@ -107,7 +152,7 @@
                       <option value="REAGENDADA">Reagendada</option>
                   </select>
               </div>
-              <div class="mb-3 checked" style="width: 100%">
+              <div class="mb-3 checked" style="width: 100vw">
                   <label for="presente" class="form-label text-dark fw-medium">Presente:</label>
                   <div class="form-check yes">
                       <input class="form-check-input" type="radio" name="presente" id="presente1" value="true" required>
@@ -120,8 +165,8 @@
               </div>
               <div class="buttons mb-3 d-flex justify-content-center col-12 p-5">
                 <button type="submit" class="btn btn-warning border-1 border-dark shadow-sm fw-bold col-lg-4 col-md-5 col-sm-6 me-md-4 me-sm-3">ENVIAR</button>
-                <a href="{% url 'navigation_menu' %}" class="btn border-1 border-dark shadow-sm fw-bold col-lg-4 col-md-5 col-sm-6">CANCELAR</a>
-                <a class="list_visit" href="{% url 'lista_visitas' %}">Lista de visitas</a>
+                <a href="{% url 'navigation_menu' %}" class="btn border-1 border-dark shadow-sm fw-bold col-lg-4 col-md-5 col-sm-6 me-md-4 me-sm-3">CANCELAR</a>
+                <a href="{% url 'lista_visitas' %}" class="btn border-1 border-dark shadow-sm fw-bold col-lg-4 col-md-5 col-sm-6">Lista de visitas</a>
             </div>
           </form>
       </div>

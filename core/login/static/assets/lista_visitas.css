@@ -1,0 +1,48 @@
+.container{
+    padding: 4px;
+    height: 100%;
+}
+form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+label {
+    text-align: left;
+}
+
+input[type="text"] {
+    flex: 1; /* Para ajustar o tamanho do input conforme necessário */
+}
+
+button.Btnbuscar {
+    padding: 8px 16px;
+    background-color: #A69213;
+    color: #000;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: solid 1px #000000;
+    border-radius: 8px;
+}
+@media (max-width: 768px) {
+    form {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    label {
+        margin-right: 0; /* Remover a margem direita para o label ocupar a largura total */
+        
+        border-radius: 8px;
+    }
+
+    input[type="text"] {
+        width: 100%; /* Garantir que o input ocupe toda a largura disponível */
+    }
+
+    button.Btnbuscar {
+        width: 40%; /* Garantir que o botão ocupe toda a largura disponível */
+    }
+}

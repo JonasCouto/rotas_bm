@@ -193,6 +193,7 @@ def lista_visitas(request):
             processo_numero = item.get('numProcesso')
 
             for visita in visitas:
+                presente = "Sim" if visita.get('presente') else "Não"  # Alteração aqui
                 visita_info = {
                     'mp_id': mp_id,
                     'visita_id': visita.get('id'),
@@ -200,7 +201,7 @@ def lista_visitas(request):
                     'horaInicio': formatar_hora(visita.get('horaInicio')),
                     'horaFim': formatar_hora(visita.get('horaFim')),
                     'status': visita.get('status'),
-                    'presente': visita.get('presente'),
+                    'presente': presente,  # Usando "Sim" ou "Não"
                     'numProcesso': processo_numero,
                 }
 
@@ -216,7 +217,6 @@ def lista_visitas(request):
         return JsonResponse({'error': f'KeyError: {e}'}, status=400)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
-
 
 def get_protective_measures(request):
     url = 'https://api-eproc-senac.vercel.app/protective-measures'
